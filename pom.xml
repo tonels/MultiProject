@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.tonels</groupId>
+    <artifactId>MultiProject</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>jpa</module>
+        <module>common</module>
+        <module>redis</module>
+        <module>mongo</module>
+        <module>springboot</module>
+    </modules>
+
+
+    <properties>
+
+        <!--指定编码和JDK版本-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+
+        <!--以下是Jar的版本依赖管理-->
+        <!--特别注意的是在子模块POM文件添加Jar时，要手动排除起步依赖相同的Jar-->
+
+        <hutool-all.version>4.5.10</hutool-all.version>
+        <guava.version>28.0-jre</guava.version>
+        <lombok.version>1.16.22</lombok.version>
+
+        <!--这些是Spring相关的Jar-->
+        <spring-boot.version>2.0.8.RELEASE</spring-boot.version>
+        <spring-boot-starter-web.version>2.0.8.RELEASE</spring-boot-starter-web.version>
+        <spring-boot-starter.version>2.0.8.RELEASE</spring-boot-starter.version>
+        <spring-boot-starter-data-jpa.version>2.0.8.RELEASE</spring-boot-starter-data-jpa.version>
+
+    </properties>
+
+
+
+    <!--放公共Jar的地方-->
+    <dependencyManagement>
+
+
+
+    </dependencyManagement>
+
+    <!--配置三个Repo地址，本地还有，阿里，Maven中央仓库-->
+    <repositories>
+        <repository>
+            <id>LocalRepo</id>
+            <url>D:/repository/</url>
+        </repository><repository>
+            <id>mvnrepository</id>
+            <url>http://mvnrepository.com/</url>
+        </repository><repository>
+            <id>maven-ali</id>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase><!--指定绑定的声明周期阶段-->
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!--<profiles>-->
+        <!--<profile>-->
+            <!--<id>dev</id>-->
+            <!--<activation>-->
+                <!--<activeByDefault>true</activeByDefault>-->
+            <!--</activation>-->
+            <!--<properties>-->
+                <!--<spring.profiles.active>dev</spring.profiles.active>-->
+            <!--</properties>-->
+        <!--</profile>-->
+        <!--<profile>-->
+            <!--<id>test</id>-->
+            <!--<properties>-->
+                <!--<spring.profiles.active>test</spring.profiles.active>-->
+            <!--</properties>-->
+        <!--</profile>-->
+
+        <!--<profile>-->
+            <!--<id>prod</id>-->
+            <!--<properties>-->
+                <!--<spring.profiles.active>prod</spring.profiles.active>-->
+            <!--</properties>-->
+        <!--</profile>-->
+    <!--</profiles>-->
+
+
+
+</project>
