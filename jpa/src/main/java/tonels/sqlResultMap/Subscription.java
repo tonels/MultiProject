@@ -53,6 +53,8 @@ import javax.persistence.*;
 public class Subscription {
 
 	private final @Id @GeneratedValue Long id = null;
+
 	private String productName;
+
 	private long userId;
 }
