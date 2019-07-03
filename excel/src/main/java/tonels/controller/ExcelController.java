@@ -1,6 +1,7 @@
 package tonels.controller;
 
 import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelWriter;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tonels.model.City;
@@ -55,6 +56,15 @@ public class ExcelController {
         }
         return ResultBean.ok();
     }
+
+    @GetMapping("/toexcel1")
+        public ResultBean to1(){
+            List<City> all = cityRepo.findAll();
+        ExcelWriter writer = cn.hutool.poi.excel.ExcelUtil.getWriter();
+//        writer.
+        return ResultBean.ok();
+    }
+
 
 
 
