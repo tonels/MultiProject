@@ -21,8 +21,8 @@ public class Test {
     public static void main(String[] args) throws FileNotFoundException {
 
 
-        excel3();
-
+        List<Object> objects = excel1();
+        System.out.println(objects);
 
     }
 
@@ -64,7 +64,7 @@ public class Test {
             String o5 = o_1.get(4).toString();
             String o6 = o_1.get(5).toString();
 
-            state.setId(Integer.parseInt(o1)).setChName(o2).setEnName(o3).setCode(o4).setCaptial(o5).setCapitalen(o6);
+            state.setId(Integer.parseInt(o1)).setChName(o2).setEnName(o3).setCode(o4).setCapital(o5).setCapitalen(o6);
             list.add(state);
         }
 
@@ -74,7 +74,7 @@ public class Test {
 
     public static void excel3() {
         State state = new State();
-        State state1 = state.setId(1).setCapitalen("A").setCaptial("B").setCode("C").setEnName("D").setChName("E").setRemark("F");
+        State state1 = state.setId(1).setCapitalen("A").setCapital("B").setCode("C").setEnName("D").setChName("E").setRemark("F");
         System.out.println("state对象数据格式为:"+ state1);
         System.out.println("state对象JsonUtil数据格式为:"+ JSONUtil.parse(state1));
 

@@ -25,7 +25,7 @@ public class State {
 
     private String code;
 
-    private String captial;
+    private String capital;
 
     private String capitalen;
 

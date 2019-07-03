@@ -1,26 +1,29 @@
 package tonels.controller;
 
-import com.alibaba.excel.EasyExcelFactory;
-import com.alibaba.excel.metadata.Sheet;
+import cn.hutool.poi.excel.ExcelReader;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import tonels.model.City;
 import tonels.model.State;
+import tonels.repo.CityRepo;
+import tonels.repo.ExcelRepo;
 import utils.ExcelUtil;
 import utils.ResultBean;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.HashMap;
+import javax.annotation.Resource;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/excel")
 public class ExcelController {
+
+
+    @Resource
+    private ExcelRepo excelRepo;
+    @Resource
+    private CityRepo cityRepo;
 
     @PostMapping("/tomysql")
     public ResultBean tomysql(@RequestBody MultipartFile file){
@@ -28,35 +31,31 @@ public class ExcelController {
         Object o = ExcelUtil.importFile(file, 1);
         List<State> states = (List<State>) o;
         return ResultBean.ok(states);
+
     }
 
     @GetMapping("/tomysql2")
-    public ResultBean tomysql(){
-        InputStream is = null;
+    public ResultBean tomysql2(){
+        ExcelReader reader = cn.hutool.poi.excel.ExcelUtil.getReader("C:\\Users\\ZhengYuan\\Desktop\\model.xlsx");
+        List<State> list = reader.read(0, 1, State.class);
         try {
-        is = new BufferedInputStream(new FileInputStream("C:\\Users\\ZhengYuan\\Desktop\\model.xlsx"));
-    } catch (FileNotFoundException e) {
-        e.printStackTrace();
-    }
-        Map<String, Object> map = new HashMap<>();
-        List<Object> read1 = EasyExcelFactory.read(is, new Sheet(1, 1));
-
-        for (Object o : read1) {
-            Object[] o1 = (Object[]) o;
-
-            List<Object> collect = Arrays.stream(o1).collect(Collectors.toList());
-            System.out.println(collect);
-            System.out.println("=====================");
-
+            List<State> all = excelRepo.saveAll(list);
+        } catch (Exception e) {
         }
-
-
-        Object read = read1;
-    List<State> states = (List<State>) read;
-        System.out.println(states);
-
-        return ResultBean.ok(states);
+        return ResultBean.ok();
     }
+
+    @GetMapping("/tomysql3")
+    public ResultBean tomysql3(){
+        ExcelReader reader = cn.hutool.poi.excel.ExcelUtil.getReader("C:\\Users\\ZhengYuan\\Desktop\\model1.xlsx", 1);
+        List<City> read = reader.read(0, 1, City.class);
+        try {
+            List<City> all = cityRepo.saveAll(read);
+        } catch (Exception e) {
+        }
+        return ResultBean.ok();
+    }
+
 
 
 
