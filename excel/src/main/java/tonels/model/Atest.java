@@ -14,7 +14,6 @@ public class Atest {
         STUDENT;//学生
     }
 
-
     @Id
    private Integer id;
 
