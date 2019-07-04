@@ -15,6 +15,7 @@
         <module>mongo</module>
         <module>springboot</module>
         <module>excel</module>
+        <module>hutool</module>
     </modules>
 
 
