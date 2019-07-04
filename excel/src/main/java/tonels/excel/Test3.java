@@ -20,6 +20,7 @@ public class Test3 {
                 "{\"capitalen\":\"A\",\"code\":\"C\",\"enName\":\"D\",\"remark\":\"F\",\"id\":1,\"capital\":\"B\",\"chName\":\"E\"}," +
                 "{\"capitalen\":\"A\",\"code\":\"C\",\"enName\":\"D\",\"remark\":\"F\",\"id\":1,\"capital\":\"B\",\"chName\":\"E\"}" +
                 "]"), State.class);
+
         ExcelWriter writer = ExcelUtil.getWriter("C:\\Users\\ZhengYuan\\Desktop\\asd.xlsx","第一栏");
         writer.addHeaderAlias("capitalen","首都英文")
                 .addHeaderAlias("id","编号")
@@ -30,9 +31,9 @@ public class Test3 {
                 .addHeaderAlias("chName","中文名");
 //        ExcelWriter write = writer.write(states,false);// 这里是不写文件头行（标题）
         ExcelWriter write = writer.write(states);
-        write.getStyleSet().setFont(HSSFColor.GREEN.index, Font.COLOR_NORMAL,"阿三大苏打",true);// 这里是设置
+//        write.getStyleSet().setFont(HSSFColor.GREEN.index, Font.COLOR_NORMAL,"阿三大苏打",true);// 这里是设置
         write.setSheet("第一栏");
-        write.getHeadCellStyle().setFillBackgroundColor(HSSFColor.BLUE.index);
+//        write.getHeadCellStyle().setFillBackgroundColor(HSSFColor.BLUE.index);
        write.close();
 
 
