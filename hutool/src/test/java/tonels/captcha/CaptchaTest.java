@@ -38,7 +38,7 @@ public class CaptchaTest {
 		LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(200, 100);
 		lineCaptcha.setGenerator(new MathGenerator());
 		String imageBase64 = lineCaptcha.getImageBase64();
-		System.out.println(imageBase64);
+		System.out.println(lineCaptcha);
 		lineCaptcha.write("d://captcha/math.png");
 	}
 
