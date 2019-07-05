@@ -27,3 +27,7 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # 取消驼峰式命名
+
+  http:
+    multipart:
+      location: //d://tmpe

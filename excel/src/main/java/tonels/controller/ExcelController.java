@@ -1,6 +1,7 @@
 package tonels.controller;
 
-import cn.hutool.db.sql.SqlUtil;
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelWriter;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,8 @@ import utils.ExcelUtil;
 import utils.ResultBean;
 
 import javax.annotation.Resource;
-import java.util.Iterator;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -65,5 +67,17 @@ public class ExcelController {
 //        writer.
         return ResultBean.ok();
     }
+
+
+    @GetMapping("/capt")
+    public ResultBean capt(HttpServletResponse response) throws IOException {
+        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(200, 100);
+        lineCaptcha.write(response.getOutputStream());
+        String imageBase64 = lineCaptcha.getImageBase64();
+        System.out.println(imageBase64);
+        return ResultBean.ok();
+    }
+
+
 
 }

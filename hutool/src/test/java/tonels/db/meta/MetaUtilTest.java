@@ -20,6 +20,7 @@ public class MetaUtilTest {
 	@Test
 	public void getTablesTest() {
 		List<String> tables = MetaUtil.getTables(ds);
+		tables.forEach(System.out::print);
 		// TODO: 2019/7/4  tables = [Atest, author, book, city, state, user]
 	}
 
