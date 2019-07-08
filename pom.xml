@@ -16,6 +16,7 @@
         <module>springboot</module>
         <module>excel</module>
         <module>hutool</module>
+        <module>guava</module>
     </modules>
 
 
