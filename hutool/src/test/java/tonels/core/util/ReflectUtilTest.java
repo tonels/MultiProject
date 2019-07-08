@@ -22,7 +22,7 @@ public class ReflectUtilTest {
 	public void getMethodsTest() {
 		Method[] methods = ReflectUtil.getMethods(ExamInfoDict.class);
 		Assert.assertEquals(22, methods.length);
-		
+
 		//过滤器测试
 		methods = ReflectUtil.getMethods(ExamInfoDict.class, new Filter<Method>() {
 			
@@ -32,7 +32,7 @@ public class ReflectUtilTest {
 			}
 		});
 		
-		Assert.assertEquals(4, methods.length);
+		Assert.assertEquals(3, methods.length);
 		final Method method = methods[0];
 		Assert.assertNotNull(method);
 		
