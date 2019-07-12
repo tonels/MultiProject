@@ -12,4 +12,10 @@
     <artifactId>redis</artifactId>
 
 
+    <dependencies>
+
+
+
+    </dependencies>
+
 </project>

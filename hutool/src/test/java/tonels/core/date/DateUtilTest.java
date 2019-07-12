@@ -523,4 +523,5 @@ public class DateUtilTest {
 		String formatHttpDate = DateUtil.formatHttpDate(DateUtil.parse("2019-01-02 22:32:01"));
 		Assert.assertEquals("Wed, 02 Jan 2019 14:32:01 GMT", formatHttpDate);
 	}
+
 }

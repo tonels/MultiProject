@@ -18,6 +18,12 @@
         <module>hutool</module>
         <module>guava</module>
     </modules>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.8.RELEASE</version>
+        <relativePath /> <!-- lookup parent from repository -->
+    </parent>
 
 
     <properties>
@@ -39,6 +45,10 @@
         <spring-boot-starter-web.version>2.0.8.RELEASE</spring-boot-starter-web.version>
         <spring-boot-starter.version>2.0.8.RELEASE</spring-boot-starter.version>
         <spring-boot-starter-data-jpa.version>2.0.8.RELEASE</spring-boot-starter-data-jpa.version>
+        <spring-data-mongodb.version>2.0.8.RELEASE</spring-data-mongodb.version>
+
+
+
 
     </properties>
 
@@ -46,6 +56,8 @@
 
     <!--放公共Jar的地方-->
     <dependencyManagement>
+
+
 
 
 
@@ -92,32 +104,6 @@
             </plugin>
         </plugins>
     </build>
-
-    <!--<profiles>-->
-        <!--<profile>-->
-            <!--<id>dev</id>-->
-            <!--<activation>-->
-                <!--<activeByDefault>true</activeByDefault>-->
-            <!--</activation>-->
-            <!--<properties>-->
-                <!--<spring.profiles.active>dev</spring.profiles.active>-->
-            <!--</properties>-->
-        <!--</profile>-->
-        <!--<profile>-->
-            <!--<id>test</id>-->
-            <!--<properties>-->
-                <!--<spring.profiles.active>test</spring.profiles.active>-->
-            <!--</properties>-->
-        <!--</profile>-->
-
-        <!--<profile>-->
-            <!--<id>prod</id>-->
-            <!--<properties>-->
-                <!--<spring.profiles.active>prod</spring.profiles.active>-->
-            <!--</properties>-->
-        <!--</profile>-->
-    <!--</profiles>-->
-
 
 
 </project>

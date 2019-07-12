@@ -1,5 +1,6 @@
 package tonels.core.util;
 
+import java.util.Date;
 import java.util.List;
 
 import cn.hutool.core.util.StrUtil;
@@ -48,6 +49,14 @@ public class StrUtilTest {
 		String str = "aaabbbcccdddaadfdfsdfsdf0";
 		String[] cut = StrUtil.cut(str, 4);
 		Assert.assertArrayEquals(new String[] { "aaab", "bbcc", "cddd", "aadf", "dfsd", "fsdf", "0" }, cut);
+	}
+
+	@Test
+	public void transTest() {
+		Date date = new Date();
+
+		String str = String.format("%tF", date);
+		System.out.println(str);
 	}
 
 	@Test
