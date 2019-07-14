@@ -1,4 +1,4 @@
-package tonels.controller;
+package tonels.mapset_procerure.controller;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;

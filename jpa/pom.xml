@@ -5,6 +5,10 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>jpa</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>../jpa2</module>
+    </modules>
 
     <parent>
         <artifactId>MultiProject</artifactId>
