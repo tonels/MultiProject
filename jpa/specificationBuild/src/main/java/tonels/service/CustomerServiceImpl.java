@@ -30,24 +30,13 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepo customerRepo;
 
     @Override
-    public List<CustomersEntity> findAllByExample(CustomersEntity customers) {
-//
-//        ExampleMatcher matcher = ExampleMatcher.matching()
-//                .withMatcher("firstname", endsWith())
-//                .withMatcher("lastname", startsWith().ignoreCase()); // 这里支持静态引包
-        return customerRepo.findAll(Example.of(customers,
-                ExampleMatcher.matching().withMatcher("contactFirstName", startsWith().ignoreCase())
-                ));
-    }
-
-    @Override
     public List<CustomersEntity> findAllBySpecification(CustomersEntity customers) {
         return customerRepo.findAll(new Specification<CustomersEntity>() {
             @Override
             public Predicate toPredicate(Root<CustomersEntity> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicates = Lists.newArrayList();
                 if (!StrUtil.isBlank(customers.getContactFirstName())) {
-                    predicates.add(cb.like(root.get("contactFirstName"), customers.getContactFirstName()));
+                    predicates.add(cb.like(root.get("contactFirstName"),  customers.getContactFirstName() + "%"));
                 }
                 if (!StrUtil.isBlank(customers.getCity())) {
                     predicates.add(cb.equal(root.get("city"), customers.getCity()));

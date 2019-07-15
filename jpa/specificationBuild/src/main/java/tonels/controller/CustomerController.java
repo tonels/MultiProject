@@ -1,6 +1,5 @@
 package tonels.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,9 +19,8 @@ public class CustomerController {
 
     @GetMapping("/findAllDynamic1") // 单 表
     public ResultBean all1(CustomersEntity customers){
-        List<CustomersEntity> all = customerService.findAllByExample(customers);
+        List<CustomersEntity> all = customerService.findAllBySpecification(customers);
         return ResultBean.ok(all);
-
     }
 
 
