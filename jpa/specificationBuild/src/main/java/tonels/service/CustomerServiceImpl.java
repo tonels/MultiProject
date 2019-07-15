@@ -17,6 +17,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
@@ -45,6 +46,33 @@ public class CustomerServiceImpl implements CustomerService {
                     predicates.add(cb.ge(root.get("salesRepEmployeeNumber"), customers.getSalesRepEmployeeNumber()));
                 }
                 return cb.and(predicates.toArray(new Predicate[0]));
+            }
+        });
+    }
+
+    @Override
+    public List<CustomersEntity> findBySpecification(CustomersEntity customers) {
+        return customerRepo.findAll(new Specification<CustomersEntity>() {
+            @Override
+            public Predicate toPredicate(Root<CustomersEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
+                final List<Predicate> andPredicate = Lists.newArrayList();
+                final List<Predicate> orPredicate = Lists.newArrayList();
+
+                // and 条件
+                if (!StrUtil.isBlank(customers.getCity())) {
+                    andPredicate.add(cb.equal(root.get("city"), customers.getCity()));
+                }
+                if (!StrUtil.isBlank(customers.getCountry())) {
+                    andPredicate.add(cb.equal(root.get("country"), customers.getCountry()));
+                }
+                // or 条件
+                if (!StrUtil.isBlank(customers.getState())) {
+                    orPredicate.add(cb.equal(root.get("state"), customers.getState()));
+                }
+                if (null != customers.getCustomerNumber()) {
+                    orPredicate.add(cb.ge(root.get("customerNumber"), customers.getCustomerNumber()));
+                }
+                return cb.and(andPredicate.toArray(new Predicate[0])/*,orPredicate.toArray(new Predicate[0])*/);;
             }
         });
     }
