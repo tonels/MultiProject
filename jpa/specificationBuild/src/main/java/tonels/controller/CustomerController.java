@@ -23,5 +23,12 @@ public class CustomerController {
         return ResultBean.ok(all);
     }
 
+    @GetMapping("/findAllDynamic2") // 单 表
+    public ResultBean all2(){
+        CustomersEntity c1 = new CustomersEntity().setCity("NYC");
+        List<CustomersEntity> all = customerService.findBySpecification2(c1);
+        return ResultBean.ok(all);
+    }
+
 
 }

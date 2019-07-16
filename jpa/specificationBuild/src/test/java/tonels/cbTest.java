@@ -8,19 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import tonel.model.CustomersEntity;
-import tonels.repo.CustomerRepo;
 import tonels.service.CustomerService;
 
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpecificationApp.class)
-public class AppTest {
-    @Autowired
-    private CustomerRepo customerRepo;
+public class cbTest {
+
     @Autowired
     private CustomerService customerService;
-
     private List<CustomersEntity> list;
 
     @Before

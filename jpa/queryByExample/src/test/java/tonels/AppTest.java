@@ -156,7 +156,7 @@ public class AppTest {
         }
     }
     @Test
-    // Unsupported StringMatcher REGEX,可能版本的原因，会报错
+    // Unsupported StringMatcher REGEX,可能Mysql版本的原因，会报错
     public void findEmployeeByNameUsingRegex() {
         System.out.println(" -- getting all Employees with name regex D.*a.*a --");
         Employee employee = new Employee();
