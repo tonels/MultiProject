@@ -55,11 +55,12 @@ public PageBean<OffEmpCustVo> list(OffEmpCustParamsVo param, PageParam pageParam
     // 集合 [org.hibernate.engine.query.spi.NamedParameterDescriptor@68ac491,
     // org.hibernate.engine.query.spi.NamedParameterDescriptor@3f187397]
 
-    for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
-        String key = entry.getKey();
-        Object value = entry.getValue();
-        query.setParameter(key, value);
-    }
+    paramMap.forEach(query::setParameter); // 和下面等价
+//    for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
+//        String key = entry.getKey();
+//        Object value = entry.getValue();
+//        query.setParameter(key, value);
+//    }
 
     query.setFirstResult((pageParam.getPage() - 1) * pageParam.getRows()).setMaxResults(pageParam.getRows());
     List<OffEmpCustVo> list = query.getResultList();
