@@ -7,7 +7,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tonel.model.CustomersEntity;
+import jpaCommon.model.CustomersEntity;
 import tonels.qbe.repo.CustomerRepo;
 
 import javax.annotation.Resource;

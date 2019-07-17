@@ -2,11 +2,10 @@ package tonels.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tonel.model.CustomersEntity;
+import jpaCommon.model.CustomersEntity;
 import tonels.repo.CustomerRepo;
 
 import javax.annotation.Resource;
@@ -15,7 +14,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

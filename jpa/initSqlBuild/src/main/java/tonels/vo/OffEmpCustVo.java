@@ -32,4 +32,17 @@ public class OffEmpCustVo {
         this.custNumber = custNumber;
         this.custState = custState;
     }
+
+//    @Override
+//    public String toString() {
+//        return "OffEmpCustVo{" +
+//                "officeCode='" + officeCode + '\'' +
+//                ", offCountry='" + offCountry + '\'' +
+//                ", offState='" + offState + '\'' +
+//                ", emploNumber=" + emploNumber +
+//                ", emploEmail='" + emploEmail + '\'' +
+//                ", custNumber=" + custNumber +
+//                ", custState='" + custState + '\'' +
+//                '}';
+//    }
 }

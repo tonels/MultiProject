@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
-@EntityScan("tonel.model")
+@EntityScan("jpaCommon.model")
 public class SqlAppRun {
 
     public static void main(String[] args) {

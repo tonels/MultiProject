@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import tonel.model.CustomersEntity;
+import jpaCommon.model.CustomersEntity;
 import tonels.service.CustomerService;
 
 import java.util.List;

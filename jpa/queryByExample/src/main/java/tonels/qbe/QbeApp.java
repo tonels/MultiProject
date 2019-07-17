@@ -7,7 +7,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan(basePackages ={ "tonel.model","tonels.qbe.model"})
+@EntityScan(basePackages ={ "jpaCommon.model","tonels.qbe.model"})
 //@SpringBootApplication(scanBasePackages = {"org.ashu.java.*"})
 //@EnableJpaRepositories(basePackages ={ "org.ashu.java.*"})
 //@EntityScan(basePackages ={ "org.ashu.java.*"})

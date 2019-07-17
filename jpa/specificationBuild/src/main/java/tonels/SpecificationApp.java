@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-@EntityScan("tonel.model")
+@EntityScan("jpaCommon.model")
 public class SpecificationApp {
     public static void main(String[] args) {
 

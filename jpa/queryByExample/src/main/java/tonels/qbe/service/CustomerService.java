@@ -1,6 +1,6 @@
 package tonels.qbe.service;
 
-import tonel.model.CustomersEntity;
+import jpaCommon.model.CustomersEntity;
 
 import java.util.List;
 

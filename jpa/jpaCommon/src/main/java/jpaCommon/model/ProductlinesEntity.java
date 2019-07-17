@@ -1,4 +1,4 @@
-package tonel.model;
+package jpaCommon.model;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

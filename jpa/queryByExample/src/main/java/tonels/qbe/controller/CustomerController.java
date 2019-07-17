@@ -3,7 +3,7 @@ package tonels.qbe.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tonel.model.CustomersEntity;
+import jpaCommon.model.CustomersEntity;
 import tonels.qbe.service.CustomerService;
 import utils.ResultBean;
 
