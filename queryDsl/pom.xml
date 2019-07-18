@@ -15,6 +15,7 @@
         <module>DslDemo1</module>
         <module>DslDemo2</module>
         <module>DslDemo3</module>
+        <module>DslDemo4</module>
     </modules>
 
     <dependencies>
