@@ -14,7 +14,6 @@
     <modules>
         <module>initSqlBuild</module>
         <module>specificationBuild</module>
-        <module>queryDsl</module>
         <module>initHsqlBuild</module>
         <module>SqlMapping</module>
         <module>jpaCommon</module>

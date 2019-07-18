@@ -18,6 +18,7 @@
         <module>hutool</module>
         <module>guava</module>
         <module>mybatis</module>
+        <module>queryDsl</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
