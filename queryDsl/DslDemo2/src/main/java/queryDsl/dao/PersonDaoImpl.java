@@ -5,11 +5,10 @@ import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import queryDsl.entity.Person;
-import queryDsl.entity.QPerson;
+import queryDsl.entity.QEntity.QPerson;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.From;
 import java.util.List;
 import java.util.Map;
 

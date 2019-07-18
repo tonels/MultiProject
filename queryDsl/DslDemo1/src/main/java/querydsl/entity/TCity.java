@@ -1,4 +1,4 @@
-package querydsl.model;
+package querydsl.entity;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
