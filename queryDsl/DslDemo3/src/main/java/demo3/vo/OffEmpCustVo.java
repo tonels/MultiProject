@@ -1,10 +1,9 @@
 package demo3.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-//@AllArgsConstructor
-//@NoArgsConstructor
 public class OffEmpCustVo {
 
     private String officeCode;
