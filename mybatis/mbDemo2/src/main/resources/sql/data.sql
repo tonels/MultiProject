@@ -1,8 +1,9 @@
 -- 替换成自己实际的 SQL 文件
-CREATE TABLE user (
-  id int(13) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  name varchar(33) DEFAULT NULL COMMENT '姓名',
-  age int(3) DEFAULT NULL COMMENT '年龄',
-  money double DEFAULT NULL COMMENT '账户余额',
-  PRIMARY KEY (id)
-) ENGINE=InnoDB;
+DELETE FROM user;
+
+INSERT INTO user (id, name, age, email) VALUES
+(1, 'Jone', 18, 'test1@baomidou.com'),
+(2, 'Jack', 20, 'test2@baomidou.com'),
+(3, 'Tom', 28, 'test3@baomidou.com'),
+(4, 'Sandy', 21, 'test4@baomidou.com'),
+(5, 'Billie', 24, 'test5@baomidou.com');

@@ -1,9 +1,10 @@
--- delimiter ;
--- CREATE procedure plus1inout (IN arg int, OUT res int)
--- BEGIN ATOMIC
--- 	set res = arg + 1;
--- END //
--- delimiter ;
---  加载存储过程会出错，暂时找不到原因
+DROP TABLE IF EXISTS user;
 
-show databases;
+CREATE TABLE user
+(
+	id BIGINT(20) NOT NULL COMMENT '主键ID',
+	name VARCHAR(30) NULL DEFAULT NULL COMMENT '姓名',
+	age INT(11) NULL DEFAULT NULL COMMENT '年龄',
+	email VARCHAR(50) NULL DEFAULT NULL COMMENT '邮箱',
+	PRIMARY KEY (id)
+);

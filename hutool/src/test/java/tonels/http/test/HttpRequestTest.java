@@ -37,6 +37,8 @@ public class HttpRequestTest {
 		
 		HttpRequest request = HttpRequest.get(url).setEncodeUrlParams(true).body("a=ss");
 		String body = request.execute().body();
+
+		Console.log(request);
 		Console.log(body);
 		
 //		String body2 = HttpUtil.get(url);

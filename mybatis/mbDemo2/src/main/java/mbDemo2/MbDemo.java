@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("mbDemo2.mapper")
 public class MbDemo {
     public static void main(String[] args) {
         SpringApplication.run(MbDemo.class);
