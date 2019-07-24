@@ -1,15 +1,11 @@
 package tonels.json.test.bean;
 
+import lombok.Data;
+
 import java.util.Map;
 
+@Data
 public class UserWithMap {
 	private Map<String, String> data;
 	
-	public Map<String, String> getData() {
-		return data;
-	}
-	
-	public void setData(Map<String, String> data) {
-		this.data = data;
-	}
 }

@@ -2,6 +2,7 @@ package tonels.mbdemo3.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import tonels.mbdemo3.entity.Customers;
+import tonels.mbdemo3.params.CustoParams;
 
 import java.util.List;
 
@@ -56,4 +57,12 @@ public interface CustomersMapper {
     int updateByPrimaryKey(Customers record);
 
     List<Customers> selectAll();
+
+    List<Customers> selectVo1();
+
+    List<Customers> selectByCity(String city);
+
+    List<Customers> selectVo2(CustoParams params);
+
+
 }

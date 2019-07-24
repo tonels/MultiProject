@@ -50,13 +50,13 @@ public class JSONArrayTest {
 		Assert.assertEquals(array.get(0), "value1");
 	}
 
+	// 直接读取 Json文件，然后转成对象
 	@Test
 	public void parseFileTest() {
-		JSONArray array = JSONUtil.readJSONArray(FileUtil.file("exam_test.json"), CharsetUtil.CHARSET_UTF_8);
+		JSONArray array = JSONUtil.readJSONArray(FileUtil.file("D:\\GitRepository\\multiProject\\hutool\\src\\main\\resources\\json/exam_test.json"), CharsetUtil.CHARSET_UTF_8);
 
-		JSONObject obj0 = array.getJSONObject(0);
-		Exam exam = JSONUtil.toBean(obj0, Exam.class);
-		Assert.assertEquals("0", exam.getAnswerArray()[0].getSeq());
+		List<Exam> exams = JSONUtil.toList(array, Exam.class);
+		System.out.println(exams);
 	}
 
 	@Test
@@ -70,20 +70,17 @@ public class JSONArrayTest {
 		b2.setBkey("bValue2");
 
 		ArrayList<KeyBean> list = CollUtil.newArrayList(b1, b2);
+		System.out.println(list);
 
-		JSONArray jsonArray = JSONUtil.parseArray(list);
-		Console.log(jsonArray);
 	}
 
 	@Test
 	public void toListTest() {
-		String jsonStr = FileUtil.readString("exam_test.json", CharsetUtil.CHARSET_UTF_8);
+		String jsonStr = FileUtil.readString("D:\\GitRepository\\multiProject\\hutool\\src\\main\\resources\\json/exam_test.json", CharsetUtil.CHARSET_UTF_8);
 		JSONArray array = JSONUtil.parseArray(jsonStr);
 
-		List<Exam> list = array.toList(Exam.class);
-		Assert.assertFalse(list.isEmpty());
-		Assert.assertEquals(Exam.class, list.get(0).getClass());
-		;
+		List<Exam> exams = JSONUtil.toList(array, Exam.class);
+		System.out.println(exams);
 	}
 
 	@Test
@@ -110,15 +107,8 @@ public class JSONArrayTest {
 		JSONArray array = JSONUtil.parseArray(jsonArr);
 		
 		List<Dict> list = JSONUtil.toList(array, Dict.class);
-		
-		Assert.assertFalse(list.isEmpty());
-		Assert.assertEquals(Dict.class, list.get(0).getClass());
-		
-		Assert.assertEquals(Integer.valueOf(111), list.get(0).getInt("id"));
-		Assert.assertEquals(Integer.valueOf(112), list.get(1).getInt("id"));
-		
-		Assert.assertEquals("test1", list.get(0).getStr("name"));
-		Assert.assertEquals("test2", list.get(1).getStr("name"));
+		System.out.println(list);
+
 	}
 
 	@Test
@@ -155,20 +145,6 @@ public class JSONArrayTest {
 		JSONArray jsonArray = JSONUtil.parseArray(mapList);
 		List<JsonNode> nodeList = jsonArray.toList(JsonNode.class);
 
-		Assert.assertEquals(Long.valueOf(0L), nodeList.get(0).getId());
-		Assert.assertEquals(Long.valueOf(1L), nodeList.get(1).getId());
-		Assert.assertEquals(Long.valueOf(0L), nodeList.get(2).getId());
-		Assert.assertEquals(Long.valueOf(0L), nodeList.get(3).getId());
-
-		Assert.assertEquals(Integer.valueOf(0), nodeList.get(0).getParentId());
-		Assert.assertEquals(Integer.valueOf(1), nodeList.get(1).getParentId());
-		Assert.assertEquals(Integer.valueOf(0), nodeList.get(2).getParentId());
-		Assert.assertEquals(Integer.valueOf(0), nodeList.get(3).getParentId());
-
-		Assert.assertEquals("0", nodeList.get(0).getName());
-		Assert.assertEquals("1", nodeList.get(1).getName());
-		Assert.assertEquals("+0", nodeList.get(2).getName());
-		Assert.assertEquals("-0", nodeList.get(3).getName());
 	}
 
 	private static Map<String, String> buildMap(String id, String parentId, String name) {

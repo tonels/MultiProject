@@ -2,6 +2,7 @@ package tonels.mbdemo3.service;
 
 import tonels.mbdemo3.entity.Customers;
 import tonels.mbdemo3.entity.Offices;
+import tonels.mbdemo3.params.CustoParams;
 
 import java.util.List;
 
@@ -17,4 +18,8 @@ public interface CustomersService {
     List<Customers> findByCity(String city);
 
     List<Offices> findById(Integer id);
+
+    List<Customers> findAll2();
+
+    List<Customers> findWhere1(CustoParams params);
 }

@@ -1,9 +1,12 @@
 package tonels.core.util;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import cn.hutool.core.util.StrUtil;
+import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -415,5 +418,70 @@ public class StrUtilTest {
 		Assert.assertEquals("1AB", StrUtil.padAfter("1", 3, "ABC"));
 		Assert.assertEquals("23", StrUtil.padAfter("123", 2, "ABC"));
 	}
-	
+
+	// 驼峰式命名和下划线之间互转测试
+
+	// - toCamelCase
+	@Test
+	public void camelTest1() {
+		ArrayList<String> list = Lists.newArrayList("ar","ro_it", "al_io", "car_ty", "rt_we", "as_pl", "cal_f", "ad_gf");
+		List<String> collect = list.stream().map(e -> StrUtil.toCamelCase(e)).collect(Collectors.toList());
+		System.out.println(collect);
+	}
+
+	@Test
+	public void camelTest11() {
+		ArrayList<String> list = Lists.newArrayList("user_id",
+				"brief",
+				"create_time",
+				"district",
+				"email",
+				"enable",
+				"facebook_id",
+				"favourite",
+				"is_lock_time",
+				"last_login_time",
+				"nickname",
+				"pass_word",
+				"phone",
+				"photo",
+				"twitter_id",
+				"wechat_id",
+				"nick_review",
+				"photo_review",
+				"instagram_id",
+				"device",
+				"type",
+				"customer_id");
+		List<String> collect = list.stream().map(e -> StrUtil.toCamelCase(e)).collect(Collectors.toList());
+		collect.forEach(System.out::println);
+	}
+
+
+	// to _Case_
+	@Test
+	public void camelTest2() {
+		ArrayList<String> list = Lists.newArrayList("ar", "roIt", "alIo", "carTy", "rtWe", "asPl", "calF", "adGf");
+		List<String> collect = list.stream().map(e -> StrUtil.toUnderlineCase(e)).collect(Collectors.toList());
+		System.out.println(collect);
+	}
+
+	// to 其他转换
+	@Test
+	public void camelTest3() {
+		ArrayList<String> list = Lists.newArrayList("ar", "roIt", "alIo", "carTy", "rtWe", "asPl", "calF", "adGf");
+		List<String> collect = list.stream().map(e -> StrUtil.toSymbolCase(e,'_')).collect(Collectors.toList());
+		System.out.println(collect);
+	}
+
+	// to 其他转换
+	@Test
+	public void camelTest4() {
+		ArrayList<String> list = Lists.newArrayList("ar", "roIt", "alIo", "carTy", "rtWe", "asPl", "calF", "adGf");
+		List<String> collect = list.stream().map(e -> StrUtil.toSymbolCase(e,'*')).collect(Collectors.toList());
+		System.out.println(collect);
+	}
+
+
+
 }

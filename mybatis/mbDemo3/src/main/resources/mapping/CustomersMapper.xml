@@ -17,182 +17,59 @@
     <result column="salesRepEmployeeNumber" jdbcType="INTEGER" property="salesrepemployeenumber" />
     <result column="creditLimit" jdbcType="DECIMAL" property="creditlimit" />
   </resultMap>
-  <sql id="Base_Column_List">
+
+  <sql id="All_Column">
     customerNumber, customerName, contactLastName, contactFirstName, phone, addressLine1,
     addressLine2, city, state, postalCode, country, salesRepEmployeeNumber, creditLimit
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <sql id="Vo1_Column">
+    customerNumber, customerName, contactLastName, contactFirstName
+  </sql>
+  <sql id="Vo2_Column">
+      customerNumber,customerName,paymentDate,amount
+  </sql>
+
+
+  <select id="selectByCity" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />
-    from customers
-    where customerNumber = #{customernumber,jdbcType=INTEGER}
+    <include refid="Vo1_Column" />
+    from customers where city = #{city}
   </select>
 
   <select id="selectAll" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />
+      <include refid="All_Column" />
     from customers
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from customers
-    where customerNumber = #{customernumber,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="tonels.mbdemo3.entity.Customers" useGeneratedKeys="true">
-    insert into customers (customerNumber, customerName, contactLastName,
-      contactFirstName, phone, addressLine1, 
-      addressLine2, city, state, 
-      postalCode, country, salesRepEmployeeNumber, 
-      creditLimit)
-    values (#{customernumber,jdbcType=INTEGER}, #{customername,jdbcType=VARCHAR}, #{contactlastname,jdbcType=VARCHAR}, 
-      #{contactfirstname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{addressline1,jdbcType=VARCHAR}, 
-      #{addressline2,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
-      #{postalcode,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{salesrepemployeenumber,jdbcType=INTEGER}, 
-      #{creditlimit,jdbcType=DECIMAL})
-  </insert>
-  <insert id="insertSelective" parameterType="tonels.mbdemo3.entity.Customers">
-    insert into customers
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="customernumber != null">
-        customerNumber,
-      </if>
-      <if test="customername != null">
-        customerName,
-      </if>
-      <if test="contactlastname != null">
-        contactLastName,
-      </if>
-      <if test="contactfirstname != null">
-        contactFirstName,
-      </if>
-      <if test="phone != null">
-        phone,
-      </if>
-      <if test="addressline1 != null">
-        addressLine1,
-      </if>
-      <if test="addressline2 != null">
-        addressLine2,
-      </if>
-      <if test="city != null">
-        city,
-      </if>
-      <if test="state != null">
-        state,
-      </if>
-      <if test="postalcode != null">
-        postalCode,
-      </if>
-      <if test="country != null">
-        country,
-      </if>
-      <if test="salesrepemployeenumber != null">
-        salesRepEmployeeNumber,
-      </if>
-      <if test="creditlimit != null">
-        creditLimit,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="customernumber != null">
-        #{customernumber,jdbcType=INTEGER},
-      </if>
-      <if test="customername != null">
-        #{customername,jdbcType=VARCHAR},
-      </if>
-      <if test="contactlastname != null">
-        #{contactlastname,jdbcType=VARCHAR},
-      </if>
-      <if test="contactfirstname != null">
-        #{contactfirstname,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="addressline1 != null">
-        #{addressline1,jdbcType=VARCHAR},
-      </if>
-      <if test="addressline2 != null">
-        #{addressline2,jdbcType=VARCHAR},
-      </if>
-      <if test="city != null">
-        #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=VARCHAR},
-      </if>
-      <if test="postalcode != null">
-        #{postalcode,jdbcType=VARCHAR},
-      </if>
-      <if test="country != null">
-        #{country,jdbcType=VARCHAR},
-      </if>
-      <if test="salesrepemployeenumber != null">
-        #{salesrepemployeenumber,jdbcType=INTEGER},
-      </if>
-      <if test="creditlimit != null">
-        #{creditlimit,jdbcType=DECIMAL},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="tonels.mbdemo3.entity.Customers">
+  <select id="selectVo1" resultMap="BaseResultMap">
+    select
+    <include refid="Vo1_Column" />
+    from customers
+  </select>
 
-    update customers
-    <set>
-      <if test="customername != null">
-        customerName = #{customername,jdbcType=VARCHAR},
-      </if>
-      <if test="contactlastname != null">
-        contactLastName = #{contactlastname,jdbcType=VARCHAR},
-      </if>
-      <if test="contactfirstname != null">
-        contactFirstName = #{contactfirstname,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="addressline1 != null">
-        addressLine1 = #{addressline1,jdbcType=VARCHAR},
-      </if>
-      <if test="addressline2 != null">
-        addressLine2 = #{addressline2,jdbcType=VARCHAR},
-      </if>
-      <if test="city != null">
-        city = #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        state = #{state,jdbcType=VARCHAR},
-      </if>
-      <if test="postalcode != null">
-        postalCode = #{postalcode,jdbcType=VARCHAR},
-      </if>
-      <if test="country != null">
-        country = #{country,jdbcType=VARCHAR},
-      </if>
-      <if test="salesrepemployeenumber != null">
-        salesRepEmployeeNumber = #{salesrepemployeenumber,jdbcType=INTEGER},
-      </if>
-      <if test="creditlimit != null">
-        creditLimit = #{creditlimit,jdbcType=DECIMAL},
-      </if>
-    </set>
-    where customerNumber = #{customernumber,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="tonels.mbdemo3.entity.Customers">
+  <select id="selectVo2" resultMap="BaseResultMap">
 
-    update customers
-    set customerName = #{customername,jdbcType=VARCHAR},
-      contactLastName = #{contactlastname,jdbcType=VARCHAR},
-      contactFirstName = #{contactfirstname,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      addressLine1 = #{addressline1,jdbcType=VARCHAR},
-      addressLine2 = #{addressline2,jdbcType=VARCHAR},
-      city = #{city,jdbcType=VARCHAR},
-      state = #{state,jdbcType=VARCHAR},
-      postalCode = #{postalcode,jdbcType=VARCHAR},
-      country = #{country,jdbcType=VARCHAR},
-      salesRepEmployeeNumber = #{salesrepemployeenumber,jdbcType=INTEGER},
-      creditLimit = #{creditlimit,jdbcType=DECIMAL}
-    where customerNumber = #{customernumber,jdbcType=INTEGER}
-  </update>
+  SELECT
+  cu.customerNumber,
+  cu.customerName,
+  pa.paymentDate,
+  pa.amount
+  FROM
+  customers cu
+  LEFT JOIN payments pa ON cu.customerNumber = pa.customerNumber
+
+  <where>
+  <if test="customernumber != null and customernumber != ''">
+  AND cu.customerNumber = #{customernumber,jdbcType=INTEGER}
+  </if>
+  <if test="customername != null and customername != ''">
+  AND cu.customerName like  "%"#{customername,jdbcType=VARCHAR}"%"
+  </if>
+  <if test="amount != null and amount != ''">
+  AND pa.amount > #{amount,jdbcType=DECIMAL}
+  </if>
+  </where>
+  </select>
+
 </mapper>

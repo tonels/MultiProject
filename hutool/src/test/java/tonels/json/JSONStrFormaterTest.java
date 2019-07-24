@@ -15,20 +15,20 @@ public class JSONStrFormaterTest {
 	public void formatTest() {
 		String json = "{'age':23,'aihao':['pashan','movies'],'name':{'firstName':'zhang','lastName':'san','aihao':['pashan','movies','name':{'firstName':'zhang','lastName':'san','aihao':['pashan','movies']}]}}";
 		String result = JSONStrFormater.format(json);
-		Assert.assertNotNull(result);
+		System.out.println(result);
 	}
 	
 	@Test
 	public void formatTest2() {
 		String json = "{\"abc\":{\"def\":\"\\\"[ghi]\"}}";
 		String result = JSONStrFormater.format(json);
-		Assert.assertNotNull(result);
+		System.out.println(result);
 	}
 	
 	@Test
 	public void formatTest3() {
 		String json = "{\"id\":13,\"title\":\"《标题》\",\"subtitle\":\"副标题z'c'z'xv'c'xv\",\"user_id\":6,\"type\":0}";
 		String result = JSONStrFormater.format(json);
-		Assert.assertNotNull(result);
+		System.out.println(result);
 	}
 }

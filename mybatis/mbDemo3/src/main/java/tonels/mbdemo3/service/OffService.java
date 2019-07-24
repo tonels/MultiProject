@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface OffService {
 
-    List<Customers> findAll();
 
 }

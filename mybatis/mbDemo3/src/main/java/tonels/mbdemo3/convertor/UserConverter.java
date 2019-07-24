@@ -1,9 +1,7 @@
 package tonels.mbdemo3.convertor;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-
 import tonels.mbdemo3.common.AbstractConvertor;
 import tonels.mbdemo3.entity.Offices;
 import tonels.mbdemo3.vo.OfficesVO;
