@@ -20,6 +20,7 @@
         <module>queryDsl</module>
         <module>commonTypeData</module>
         <module>mybatis</module>
+        <module>web</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

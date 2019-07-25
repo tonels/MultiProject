@@ -2,6 +2,7 @@ package tonels.mbdemo3.service.Impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import tonels.mbdemo3.dao.CustomersMapper;
 import tonels.mbdemo3.dao.OfficesMapper;
 import tonels.mbdemo3.entity.Customers;
@@ -11,6 +12,7 @@ import tonels.mbdemo3.service.CustomersService;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -30,14 +32,13 @@ public class CustomerImpl implements CustomersService {
     }
 
     @Override
-    public Customers update(Customers customers) {
-        int i = customersMapper.updateByPrimaryKey(customers);
-        return 1 == i ? customers:null;
+    public void update(Customers customers) {
+       customersMapper.updateByPriKey(customers);
     }
 
     @Override
-    public void delete(Integer id) {
-        customersMapper.deleteByPrimaryKey(id);
+    public void delete(Set<Integer> ids) {
+        customersMapper.deleteByPriKey(ids);
     }
 
     @Override
@@ -57,7 +58,12 @@ public class CustomerImpl implements CustomersService {
     }
 
     @Override
-    public List<Offices> findById(Integer id) {
+    public List<Customers> findByCityAndFirstName(@RequestParam(required = false) String city, String contactfirstname) {
+        return customersMapper.selectByCityAndContactfirstname(city,contactfirstname);
+    }
+
+    @Override
+    public List<Offices> findJoin(Integer id) {
         return officesMapper.selectByJoin();
     }
 
@@ -65,6 +71,11 @@ public class CustomerImpl implements CustomersService {
     public List<Customers> findWhere1(CustoParams params) {
         List<Customers> customers = customersMapper.selectVo2(params);
         return customers;
+    }
+
+    @Override
+    public List<Customers> findById(Integer id) {
+        return customersMapper.selectByPrimaryKey(id);
     }
 }
 

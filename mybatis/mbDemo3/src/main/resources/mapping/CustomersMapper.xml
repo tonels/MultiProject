@@ -23,18 +23,30 @@
     addressLine2, city, state, postalCode, country, salesRepEmployeeNumber, creditLimit
   </sql>
   <sql id="Vo1_Column">
-    customerNumber, customerName, contactLastName, contactFirstName
+    customerNumber, customerName, contactLastName, contactFirstName,city
   </sql>
   <sql id="Vo2_Column">
       customerNumber,customerName,paymentDate,amount
   </sql>
 
 
-  <select id="selectByCity" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        <include refid="Vo1_Column" />
+        from customers cu where cu.customerNumber = #{customernumber,jdbcType=INTEGER}
+    </select>
+
+  <select id="selectByCity" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Vo1_Column" />
-    from customers where city = #{city}
+    from customers cu where cu.city = #{city,jdbcType=VARCHAR}
   </select>
+
+    <select id="selectByCityAndContactfirstname"  resultMap="BaseResultMap">
+        select
+          <include refid="Vo1_Column" />
+        from customers cu where cu.city = #{city,jdbcType=VARCHAR} and cu.contactFirstName = #{contactfirstname,jdbcType=VARCHAR}
+    </select>
 
   <select id="selectAll" resultMap="BaseResultMap">
     select
@@ -49,15 +61,14 @@
   </select>
 
   <select id="selectVo2" resultMap="BaseResultMap">
-
-  SELECT
-  cu.customerNumber,
-  cu.customerName,
-  pa.paymentDate,
-  pa.amount
-  FROM
-  customers cu
-  LEFT JOIN payments pa ON cu.customerNumber = pa.customerNumber
+    SELECT
+    cu.customerNumber,
+    cu.customerName,
+    pa.paymentDate,
+    pa.amount
+    FROM
+    customers cu
+    LEFT JOIN payments pa ON cu.customerNumber = pa.customerNumber
 
   <where>
   <if test="customernumber != null and customernumber != ''">
@@ -71,5 +82,68 @@
   </if>
   </where>
   </select>
+
+
+  <!--插入sql-->
+  <insert id="insert" parameterType="tonels.mbdemo3.entity.Customers">
+
+    insert into customers (
+        customerNumber,
+        customerName,
+        contactLastName,
+        contactFirstName,
+        phone,
+        addressLine1,
+        addressLine2,
+        city,
+        state,
+        postalCode,
+        country,
+        salesRepEmployeeNumber,
+        creditLimit)
+    values (
+        #{customernumber,jdbcType=INTEGER},
+        #{customername,jdbcType=VARCHAR},
+        #{contactlastname,jdbcType=VARCHAR},
+        #{contactfirstname,jdbcType=VARCHAR},
+        #{phone,jdbcType=VARCHAR},
+        #{addressline1,jdbcType=VARCHAR},
+        #{addressline2,jdbcType=VARCHAR},
+        #{city,jdbcType=VARCHAR},
+        #{state,jdbcType=VARCHAR},
+        #{postalcode,jdbcType=VARCHAR},
+        #{country,jdbcType=VARCHAR},
+        #{salesrepemployeenumber,jdbcType=INTEGER},
+        #{creditlimit,jdbcType=DECIMAL}
+      )
+  </insert>
+  <update id="updateByPriKey" parameterType="tonels.mbdemo3.entity.Customers">
+    update customers
+    set
+      customerName = #{customername,jdbcType =VARCHAR },
+      contactLastName = #{contactlastname,jdbcType = VARCHAR},
+      contactFirstName = #{contactfirstname,jdbcType = VARCHAR},
+      phone = #{phone,jdbcType = VARCHAR},
+      addressLine1 = #{addressline1,jdbcType = VARCHAR},
+      addressLine2 = #{addressline2,jdbcType = VARCHAR},
+      city = #{city,jdbcType = VARCHAR},
+      state = #{state,jdbcType = VARCHAR},
+      postalCode = #{postalcode,jdbcType = VARCHAR},
+      country = #{country,jdbcType = VARCHAR},
+      salesRepEmployeeNumber = #{salesrepemployeenumber,jdbcType = INTEGER},
+      creditLimit = #{creditlimit,jdbcType = DECIMAL}
+    where customers.customerNumber = #{customernumber,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteByPriKey" parameterType="java.util.List">
+    delete from customers where customerNumber in
+     <foreach collection="ids"  item="item" open="(" separator="," close=")" >
+          #{item}
+     </foreach>
+  </delete>
+
+
+
+
 
 </mapper>

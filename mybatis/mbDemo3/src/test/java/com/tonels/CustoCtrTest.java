@@ -17,6 +17,7 @@ import tonels.mbdemo3.entity.Customers;
 import tonels.mbdemo3.params.CustoParams;
 import utils.ResultBean;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,12 +65,17 @@ public class CustoCtrTest {
         Console.log(resultBean.getResult());
     }
 
-//    @Test
-//    public void querywhere1(){
-//        String body = HttpRequest.get(baseurl + findWhere1 +"?").body(JSONUtil.parse(lists.get(0))).execute().body(); //响应的Json 数据
-//
-//        Console.log(body);
-//    }
+    @Test
+    public void querywhere1(){
+        CustoParams params = lists.get(0);
+        System.out.println(params.toString());
+        JSON parse = JSONUtil.parse(params);
+        System.out.println(parse);
+        System.out.println("----------------------------");
+
+        String body = HttpRequest.get(baseurl + findWhere1 +"?customernumber="+params.getCustomernumber() + "&customername="+params.getCustomername() + "&amount=" + params.getAmount()).execute().body(); //响应的Json 数据
+        Console.log(body);
+    }
 
 
 
