@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 /**
  * 全局异常捕捉
  *
- * @author liheng
+ * @author tonels
  */
 @RestControllerAdvice
 @Slf4j
@@ -305,22 +305,4 @@ public class WebExceptionHandler {
         return ResultBean.error(HttpStatus.INTERNAL_SERVER_ERROR.value() + "", e.getMessage());
     }
 
-//    /**
-//     * Exception 异常
-//     *
-//     * @param e
-//     * @param response
-//     * @return
-//     */
-//    @ExceptionHandler(BindException.class)
-//    public Object BindException(BindException e, HttpServletResponse response) {
-//        log.error(">>>异常：{}", e.getMessage());
-//        StackTraceElement[] stackTrace = e.getStackTrace();
-//        List<String> collect = new ArrayList<>(Arrays.asList(stackTrace)).stream().map(StackTraceElement::getClassName).collect(Collectors.toList());
-//        if (collect.contains("")) {
-//            e.printStackTrace();
-//            return ResultBean.ok();
-//        }
-//        return ResultBean.error(HttpStatus.INTERNAL_SERVER_ERROR.value() + "", e.getMessage());
-//    }
 }

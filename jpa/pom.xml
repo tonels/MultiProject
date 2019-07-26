@@ -18,6 +18,7 @@
         <module>SqlMapping</module>
         <module>jpaCommon</module>
         <module>queryByExample</module>
+        <module>modelTable1</module>
     </modules>
 
 </project>
