@@ -20,8 +20,6 @@ public class StuController {
     @Resource
     private StuRepo stuRepo;
 
-
-
     @GetMapping("/save")
     public void save() {
         for (int i = 100; i < 120; i++) {
