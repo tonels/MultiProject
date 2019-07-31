@@ -13,6 +13,7 @@ public class Demo1 {
         SpringApplication.run(Demo1.class);
     }
 
+    // TODO: 2019/7/30 ssss
     @Bean
     WebMvcConfigurer webMvcConfigurer(){
         return new WebMvcConfigurerAdapter() {

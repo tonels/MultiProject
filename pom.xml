@@ -21,6 +21,7 @@
         <module>commonTypeData</module>
         <module>mybatis</module>
         <module>web</module>
+        <module>Docker</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
-
+// todo 测试interceptor
 @RestController
 @RequestMapping("/inter")
 public class InterceptorTest {
