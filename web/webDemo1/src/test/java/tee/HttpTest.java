@@ -2,13 +2,15 @@ package tee;
 
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
 import demo1.model.User;
 import org.junit.Test;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -23,7 +25,7 @@ public class HttpTest {
     private static String post2 = "/post2"; // 有参
 
 //    @Resource
-//    private RestTemplate restTemplate;
+//    private TestRestTemplate restTemplate;
 
    // get 无参调用http接口
     @Test
@@ -100,7 +102,7 @@ public class HttpTest {
     @Test
     public void httpUtil1(){
 
-        User user = new User(23, "梁帅真的帅");
+        User user = new User(23, "ppsa");
 
         Map map = new HashMap();
         map.put("age",25);
@@ -115,7 +117,10 @@ public class HttpTest {
 
     @Test
     public void httpUtil2(){
-
+//        RestTemplate restTemplate = new RestTemplate();
+//        ResponseEntity<Map> mapResponseEntity = restTemplate
+//                .postForEntity(commonConfig.getMspUrl() + PRESECTION_TASK, JSON.toJSONString(conPresectionTaskVo), Map.class);
+//        Map body = mapResponseEntity.getBody();
     }
 
 

@@ -1,10 +1,7 @@
 package tets;
 
 import cn.hutool.http.HttpUtil;
-import com.tonels.webDemo2.WebDemo2;
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.boot.SpringApplication;
 
 public class HttpTest {
 
