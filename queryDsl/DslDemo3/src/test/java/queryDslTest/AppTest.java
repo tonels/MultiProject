@@ -4,7 +4,6 @@ import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
 import com.querydsl.core.BooleanBuilder;
 import demo3.Demo3Run;
-import demo3.model.CustomersEntity;
 import demo3.model.QEntity.QCustomersEntity;
 import demo3.model.QEntity.QEmployeesEntity;
 import demo3.model.QEntity.QOfficesEntity;
@@ -15,15 +14,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.time.Instant;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
