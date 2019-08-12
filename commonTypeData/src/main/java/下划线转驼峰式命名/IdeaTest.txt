@@ -1,0 +1,28 @@
+produceId
+gkId
+assetId
+videoId
+video_name
+produce_status
+produce_reason
+produce_start_time
+produce_end_time
+publish_status
+publish_reason
+publish_start_time
+publish_end_time
+operator
+operator_name
+node_status
+collect_time
+
+
+下划线转驼峰式直接替换方式 snake Case to camel Case
+[_]{1,1}([a-z]    \U$1
+ replace(使用regix),这里不知道为什么只能一个个replace替换，不能Replace ALl操作
+
+驼峰式转下划线，直接替换方式 camel Case to snake Case
+
+
+
+

@@ -1,0 +1,17 @@
+produce_id
+gk_id
+asset_id
+video_id
+video_name
+produce_status
+produce_reason
+produce_start_time
+produce_end_time
+publishStatus
+publishReason
+publishStartTime
+publishEndTime
+operator
+operatorName
+nodeStatus
+collectTime

@@ -16,7 +16,6 @@ public class KafkaController {
 
     private static final String TOPIC = "kafkaExample";
 
-
     @GetMapping("/pub/{message}")
     public String post(@PathVariable("message") final String message){
 

@@ -19,8 +19,6 @@ import cn.hutool.core.map.MapUtil;
 
 /**
  * Bean工具单元测试
- * @author Looly
- *
  */
 public class BeanUtilTest {
 	
