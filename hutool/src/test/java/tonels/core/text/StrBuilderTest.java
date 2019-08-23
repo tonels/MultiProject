@@ -70,7 +70,8 @@ public class StrBuilderTest {
 		builder.reset();
 		Assert.assertEquals("", builder.toString());
 	}
-	
+
+
 	@Test
 	public void resetTest2() {
 		StrBuilder builder = StrBuilder.create(1);
