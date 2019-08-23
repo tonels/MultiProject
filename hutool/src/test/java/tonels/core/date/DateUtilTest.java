@@ -2,6 +2,7 @@ package tonels.core.date;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -213,7 +214,28 @@ public class DateUtilTest {
 
 		long between = DateUtil.between(date1, date2, DateUnit.MS);
 		String formatBetween = DateUtil.formatBetween(between, Level.MINUTE);
+		System.out.println(formatBetween);
 		Assert.assertEquals("31天1小时21分", formatBetween);
+	}
+
+	@Test
+	public void localDateformatBetweenTest() {
+		LocalDateTime from = LocalDateTime.of(2011,05,26,12,23,56);
+
+		LocalDateTime end = LocalDateTime.of(2011,05,29,10,06,20);
+
+		long be = ChronoUnit.MILLIS.between(from, end);
+		System.out.println(be);
+
+
+		String s = DateUtil.formatBetween(be, Level.SECOND);
+
+		System.out.println(s);
+
+
+////		long between = DateUtil.between(date1, date2, DateUnit.MS);
+//		String formatBetween = DateUtil.formatBetween(be, Level.MINUTE);
+//		System.out.println(formatBetween);
 	}
 
 	@Test
