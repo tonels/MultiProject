@@ -28,7 +28,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @RestController
-@RequestMapping("/dsl1")
+@RequestMapping("/city1")
 public class CityController {
 
     @Resource
@@ -134,7 +134,7 @@ public class CityController {
         return PageBean.ok(page.getTotalPages(),page.getTotalElements(),page.getContent());
     }
 
-    private BooleanBuilder builder1(CityHotelVo vo){
+    public static BooleanBuilder builder1(CityHotelVo vo){
 
         QTCity c = QTCity.tCity;
         QTHotel h = QTHotel.tHotel;
@@ -155,7 +155,7 @@ public class CityController {
         return boob;
     }
 
-    private List<CityHotelVo> trans1(List<Tuple> tuple){
+    public static List<CityHotelVo> trans1(List<Tuple> tuple){
 
         QTCity c = QTCity.tCity;
         QTHotel h = QTHotel.tHotel;

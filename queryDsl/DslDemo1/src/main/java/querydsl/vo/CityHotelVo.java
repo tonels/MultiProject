@@ -14,7 +14,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class CityHotelVo {
 
     private Integer id;
