@@ -23,6 +23,7 @@
         <module>web</module>
         <module>Docker</module>
         <module>kafka</module>
+        <module>jpaModel</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
