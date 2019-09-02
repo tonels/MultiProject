@@ -21,3 +21,4 @@ sleep 30
 tail -n 150 nohup.out
 echo '日志打印结束。。。。。。。。。。。。'
 echo '请稍后访问...验证'
+
