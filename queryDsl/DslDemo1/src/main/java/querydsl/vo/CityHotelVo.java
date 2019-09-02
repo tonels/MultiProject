@@ -3,13 +3,16 @@ package querydsl.vo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 /**
  * 查询条件
  */
 
 @Data
-//@Builder
+@Accessors(chain = true)
+@NoArgsConstructor
 @AllArgsConstructor
 public class CityHotelVo {
 

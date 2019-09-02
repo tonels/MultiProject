@@ -7,8 +7,9 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Pageable;
-import querydsl.entity.QEntity.QTCity;
-import querydsl.entity.QEntity.QTHotel;
+
+import querydsl.entity.QTCity;
+import querydsl.entity.QTHotel;
 import querydsl.vo.CityHotelVo;
 
 import javax.persistence.EntityManager;
