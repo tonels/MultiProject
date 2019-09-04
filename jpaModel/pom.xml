@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>jpaModel.demo1</module>
+        <module>jpaModelDemo2</module>
+        <module>jpaModelDemo3</module>
     </modules>
 
 
