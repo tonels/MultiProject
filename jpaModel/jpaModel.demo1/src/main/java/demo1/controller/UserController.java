@@ -59,7 +59,8 @@ public class UserController {
     }
 
     @GetMapping("/delete")
-    public ResultBean del( Long id){
+
+    public ResultBean del(Long id){
 
         userRepo.deleteById(id);
         return ResultBean.ok();
