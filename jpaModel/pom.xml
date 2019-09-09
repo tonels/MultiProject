@@ -14,6 +14,8 @@
     <modules>
         <module>jpaModel.demo1</module>
         <module>jpaModel2</module>
+        <module>jpaModelDemo2</module>
+        <module>jpaModelDemo3</module>
     </modules>
 
 

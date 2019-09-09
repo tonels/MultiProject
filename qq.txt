@@ -1,0 +1,24 @@
+source /etc/profile;
+
+#实际项目路径
+appdir=/opt/oes/oes-workbench
+#实际部署的应用名称
+appname=oes-workbench-manage
+#实际日志输出路径
+logdir=/opt/oes/oes-workbench/log
+
+cd  $appdir
+
+cp -f /usr/local/deploy/oes-workbench-manage.jar oes-workbench-manage.jar
+if [[ $? -ne 0 ]];then exit 1;fi
+
+kill -9 $(ps -aef | grep $appname | grep -v grep | awk '{print $2}')
+
+echo '拷贝完成，开始启动。。。'
+nohup java -jar oes-workbench-manage.jar &
+echo '等待30秒钟，看看应用运行情况。。。'
+sleep 30
+tail -n 150 nohup.out
+echo '日志打印结束。。。。。。。。。。。。'
+echo '请稍后访问...验证'
+
