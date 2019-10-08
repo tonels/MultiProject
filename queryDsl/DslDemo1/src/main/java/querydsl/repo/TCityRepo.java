@@ -8,4 +8,5 @@ import querydsl.repo.customer.TCityRepoCustom;
 
 @Repository
 public interface TCityRepo extends JpaRepository<TCity,Long>, QuerydslPredicateExecutor<TCity>, TCityRepoCustom {
+
 }

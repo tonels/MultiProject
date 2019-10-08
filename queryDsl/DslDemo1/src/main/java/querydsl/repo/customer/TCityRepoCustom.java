@@ -27,5 +27,11 @@ public interface TCityRepoCustom {
     // 自定义返回
     public List<CityHotelVo> findcityHotel();
 
+    long count1();
+
+    List<Long> count2();
+
+    List<Tuple> count3();
+
 
 }

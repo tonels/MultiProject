@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Accessors(chain = true)

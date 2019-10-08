@@ -1,10 +1,13 @@
 package querydsl.controller;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.google.common.collect.Lists;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.data.domain.Page;
@@ -19,13 +22,18 @@ import querydsl.entity.QTHotel;
 import querydsl.entity.TCity;
 import querydsl.repo.TCityRepo;
 import querydsl.vo.CityHotelVo;
+import querydsl.vo.Vo1;
+import querydsl.vo.Vo2;
+import querydsl.vo.Vo3;
 import utils.PageBean;
 import utils.ResultBean;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/city1")
@@ -45,45 +53,51 @@ public class CityController {
         TCity c4 = new TCity().setId(4).setName("dld").setState("CT").setCountry("canada").setMap("m4");
         TCity c5 = new TCity().setId(5).setName("london").setState("CE").setCountry("english").setMap("m5");
 
-        list = Lists.newArrayList(c1,c2,c3,c4,c5);
+        list = Lists.newArrayList(c1, c2, c3, c4, c5);
     }
 
     /**
-     * 单表分页操作
+     * 单表,模糊查询
+     *
      * @return PageBean
      */
     @GetMapping("/s1")
-    public PageBean<TCity> s1(){
+    public ResultBean s1(String name) {
 
         QTCity tCity = QTCity.tCity;
+
         Predicate predicate = tCity.id.longValue().lt(10)
-                .and(tCity.name.like("%a%"));
-        PageRequest pagerequest = PageRequest.of(0, 10, Sort.Direction.ASC, "id");
-        Page<TCity> all = tCityRepo.findAll(predicate,pagerequest);
-
-        return PageBean.ok(all.getTotalPages(),all.getTotalElements(),all.getContent());
-    }
-
-    /**
-     * list查询
-     * @return ResultBean
-     */
-    @GetMapping("/s2")
-    public ResultBean s2(){
-
-        QTCity tCity = QTCity.tCity;
-        Predicate predicate = tCity.id.longValue().lt(10).and(tCity.name.like("%a%"));
-
+                .and(tCity.name.like("%" + name + "%"));
         Iterable<TCity> all1 = tCityRepo.findAll(predicate);
         return ResultBean.ok(all1);
     }
 
     /**
+     * list查询
+     *
+     * @return ResultBean
+     */
+    @GetMapping("/s2")
+    public PageBean s2() {
+
+        QTCity tCity = QTCity.tCity;
+        Predicate predicate = tCity.id.longValue().lt(10);
+
+        PageRequest pageRequest = PageRequest.of(0, 5, Sort.by(Sort.Order.asc("id")));
+
+        Page<TCity> page = tCityRepo.findAll(predicate, pageRequest);
+
+        return PageBean.ok(page.getTotalPages(), page.getTotalElements(), page.getContent());
+    }
+
+
+    /**
      * List,联表
+     *
      * @return ResultBean
      */
     @GetMapping("/s3")
-    public ResultBean s3(){
+    public ResultBean s3() {
         JPAQuery<CityHotelVo> query = new JPAQuery<>(em);
         QTCity c = QTCity.tCity;
         QTHotel h = QTHotel.tHotel;
@@ -109,32 +123,107 @@ public class CityController {
 
     /**
      * List,分页,动态条件
+     *
      * @return PageBean
      */
     @GetMapping("/s4")
-    public PageBean s4(CityHotelVo vo){
+    public PageBean s4(CityHotelVo vo) {
         JPAQuery<CityHotelVo> query = new JPAQuery<>(em);
         QTCity c = QTCity.tCity;
         QTHotel h = QTHotel.tHotel;
 
         BooleanBuilder builder = this.builder1(vo);
-        PageRequest pageRequest = PageRequest.of(0, 5, Sort.by(Sort.Order.asc("id")));
-        JPAQuery<Tuple> on = query.select(
+        PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Order.asc("id")));
+        JPAQuery<Tuple> wSelect = query.select(
                 c.id,
                 c.name,
                 h.name,
                 h.address).from(c).leftJoin(h).on(c.id.eq(h.city)).where(builder);
 
-        QueryResults<Tuple> rts = on.fetchResults();
-        List<Tuple> results = rts.getResults();
+        wSelect.orderBy(new OrderSpecifier<>(Order.DESC, c.id));
+        QueryResults<Tuple> queryResults = wSelect.offset(pageRequest.getOffset()).limit(pageRequest.getPageSize()).fetchResults();
 
-        List<CityHotelVo> cityHotelVos = this.trans1(results);
+        List<Tuple> tuples = queryResults.getResults();
+
+        List<CityHotelVo> cityHotelVos = this.trans1(tuples);
 
         Page<CityHotelVo> page = new PageImpl<>(cityHotelVos, pageRequest, cityHotelVos.size());
-        return PageBean.ok(page.getTotalPages(),page.getTotalElements(),page.getContent());
+
+        return PageBean.ok(page.getTotalPages(), page.getTotalElements(), page.getContent());
     }
 
-    public static BooleanBuilder builder1(CityHotelVo vo){
+// Assert.notNull(pageable, "Pageable must not be null!");
+//
+//		final JPQLQuery<?> countQuery = createCountQuery(predicate);
+//		JPQLQuery<T> query = querydsl.applyPagination(pageable, createQuery(predicate).select(path));
+//
+//		return PageableExecutionUtils.getPage(query.fetch(), pageable, countQuery::fetchCount);
+
+    /**
+     * 分页实现
+     *
+     * @param vo 前端传参
+     * @return
+     */
+    @GetMapping("/s5")
+    public ResultBean s5(CityHotelVo vo) {
+
+        BooleanBuilder builder = this.builder1(vo);
+        PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Order.asc("id")));
+
+        QueryResults<Tuple> results = tCityRepo.findCityAndHotelPage(builder, pageRequest);
+        List<Tuple> list = results.getResults();
+
+        // 使用无参构造处理
+//        List<Vo1> list1 = Lists.newArrayList();
+//        list.forEach(e -> {
+//            Vo1 vo1 = new Vo1();
+//            vo1.setId(e.get(QTCity.tCity.id));
+//            vo1.setTHotel(e.get(QTHotel.tHotel));
+//            list1.add(vo1);
+//        });
+
+        // 使用有参构造处理
+        List<Vo1> collect = list.stream().map(Vo1::new).collect(Collectors.toList());
+//        List<Vo1> collect = list.stream().map(e -> new Vo1(e)).collect(Collectors.toList());
+
+        return ResultBean.ok(collect);
+    }
+
+    /**
+     * list
+     *
+     * @return
+     */
+    @GetMapping("/s6")
+    public ResultBean s6() {
+        List<CityHotelVo> vos = tCityRepo.findcityHotel();
+        return ResultBean.ok(vos);
+    }
+
+    @GetMapping("/s7")
+    public ResultBean s7(CityHotelVo vo) {
+        BooleanBuilder builder = this.builder1(vo);
+        List<Tuple> list = tCityRepo.findCityAndHotel(builder);
+        List<Vo2> collect = list.stream().map(Vo2::new).collect(Collectors.toList());
+        return ResultBean.ok(collect);
+    }
+
+    // =========================================== 聚 合 函 数 函 数 的 使 用 ==============================
+
+    @GetMapping("/s8")
+    public ResultBean s8() {
+        long l = tCityRepo.count1();
+        return ResultBean.ok(l);
+    }
+
+    @GetMapping("/s9")
+    public ResultBean s9() {
+        List<Long> count2 = tCityRepo.count2();
+        return ResultBean.ok(count2);
+    }
+
+    public static BooleanBuilder builder1(CityHotelVo vo) {
 
         QTCity c = QTCity.tCity;
         QTHotel h = QTHotel.tHotel;
@@ -155,7 +244,15 @@ public class CityController {
         return boob;
     }
 
-    public static List<CityHotelVo> trans1(List<Tuple> tuple){
+    @GetMapping("/s10")
+    public ResultBean getS10(){
+        List<Tuple> list = tCityRepo.count3();
+        List<Vo3> collect = list.stream().map(Vo3::new).collect(Collectors.toList());
+        return ResultBean.ok(collect);
+    }
+
+
+    public static List<CityHotelVo> trans1(List<Tuple> tuple) {
 
         QTCity c = QTCity.tCity;
         QTHotel h = QTHotel.tHotel;
@@ -171,7 +268,6 @@ public class CityController {
         }
         return list1;
     }
-
 
 
 }
