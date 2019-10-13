@@ -24,6 +24,7 @@
         <module>Docker</module>
         <module>kafka</module>
         <module>jpaModel</module>
+        <module>taskThread</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
