@@ -19,6 +19,7 @@
         <module>Spring-Data-Annotations</module>
         <module>SpringBoot-Annotations</module>
         <module>Spring-Schedule-Annotation</module>
+        <module>Spring-Format-Annotation</module>
     </modules>
 
     <dependencies>

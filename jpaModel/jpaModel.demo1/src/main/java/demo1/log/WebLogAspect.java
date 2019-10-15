@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 自定义注解处理类
+ * 自定义注解处理类 + AOP
  * 存操作记录
  * 打印日志
  */

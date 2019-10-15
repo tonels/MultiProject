@@ -27,10 +27,9 @@ public class AsyncService {
 	}
 
 	@Async("asyncExecutor")
-	public CompletableFuture<EmployeeNames> getEmployeeName() throws InterruptedException
-	{
+	public CompletableFuture<EmployeeNames> getEmployeeName() throws InterruptedException {
 		log.info("getEmployeeName Starts");
-		EmployeeNames employeeNameData = restTemplate.getForObject("http://localhost:8080/name", EmployeeNames.class);
+		EmployeeNames employeeNameData = restTemplate.getForObject("http://localhost:1210/names", EmployeeNames.class);
 
 		log.info("employeeNameData, {}", employeeNameData);
 		Thread.sleep(1000L);	//Intentional delay
@@ -39,10 +38,9 @@ public class AsyncService {
 	}
 
 	@Async("asyncExecutor")
-	public CompletableFuture<EmployeeAddresses> getEmployeeAddress() throws InterruptedException
-	{
+	public CompletableFuture<EmployeeAddresses> getEmployeeAddress() throws InterruptedException {
 		log.info("getEmployeeAddress Starts");
-		EmployeeAddresses employeeAddressData = restTemplate.getForObject("http://localhost:8080/address", EmployeeAddresses.class);
+		EmployeeAddresses employeeAddressData = restTemplate.getForObject("http://localhost:1210/addresses", EmployeeAddresses.class);
 
 		log.info("employeeAddressData, {}", employeeAddressData);
 		Thread.sleep(1000L);	//Intentional delay
@@ -51,10 +49,9 @@ public class AsyncService {
 	}
 
 	@Async("asyncExecutor")
-	public CompletableFuture<EmployeePhone> getEmployeePhone() throws InterruptedException
-	{
+	public CompletableFuture<EmployeePhone> getEmployeePhone() throws InterruptedException {
 		log.info("getEmployeePhone Starts");
-		EmployeePhone employeePhoneData = restTemplate.getForObject("http://localhost:8080/phone", EmployeePhone.class);
+		EmployeePhone employeePhoneData = restTemplate.getForObject("http://localhost:1210/phones", EmployeePhone.class);
 
 		log.info("employeePhoneData, {}", employeePhoneData);
 		Thread.sleep(1000L);	//Intentional delay

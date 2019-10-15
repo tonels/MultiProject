@@ -25,6 +25,7 @@
         <module>kafka</module>
         <module>jpaModel</module>
         <module>taskThread</module>
+        <module>springboot-jsp</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

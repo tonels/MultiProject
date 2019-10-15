@@ -31,14 +31,4 @@ public class UserService {
         Thread.sleep(1000L);
         return CompletableFuture.completedFuture(results);
     }
-
-    @Async("task2")
-    public CompletableFuture <User> findUser2(String user) throws InterruptedException {
-
-        String url = String.format("https://api.github.com/users/%s", user);
-        User results = restTemplate.getForObject(url, User.class);
-        // Artificial delay of 1s for demonstration purposes
-        Thread.sleep(1000L);
-        return CompletableFuture.completedFuture(results);
-    }
 }

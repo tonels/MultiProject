@@ -31,7 +31,6 @@ public class AsyncController {
 		CompletableFuture<EmployeeNames> employeeName = service.getEmployeeName();
 		CompletableFuture<EmployeePhone> employeePhone = service.getEmployeePhone();
 
-		// Wait until they are all done
 		CompletableFuture.allOf(employeeAddress, employeeName, employeePhone).join();
 		
 		log.info("EmployeeAddress--> " + employeeAddress.get());

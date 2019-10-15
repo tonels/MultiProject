@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class EmployeeDataController
-{
+public class EmployeeDataController {
     private static Logger log = LoggerFactory.getLogger(EmployeeDataController.class);
 
     @GetMapping(value = "/addresses")
@@ -85,5 +84,12 @@ public class EmployeeDataController
         employeeNamesList.setEmployeeNameList(employeeList);
 
         return employeeNamesList;
+    }
+
+    @GetMapping("/trade")
+    public void t1(Trade trade){
+
+        System.out.println(trade.getAmount());
+        System.out.println(trade.getTradeDate());
     }
 }
