@@ -3,16 +3,10 @@ package demo.io;
 import com.google.common.base.Charsets;
 import com.google.common.base.Throwables;
 import com.google.common.io.Files;
-import com.google.common.io.Flushables;
-import com.google.common.io.Resources;
-import org.junit.Assert;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.net.URL;
 import java.util.List;
 
 @Test

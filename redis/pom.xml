@@ -10,6 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>redis</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>redisDemo1</module>
+        <module>redisDemo2</module>
+        <module>redisDemo3</module>
+    </modules>
 
 
     <dependencies>
