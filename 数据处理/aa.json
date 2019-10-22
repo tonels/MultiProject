@@ -222,6 +222,42 @@ SpanName
 @PreFilter
 
 
+## 十七、org.springframework.security/org.springframework.boot.autoconfigure.security
+
+@Aggregator
+@BridgeFrom
+@BridgeTo
+@CorrelationStrategy
+@Default
+@EndpointId
+@Filter
+@Gateway
+@GatewayHeader
+@IdempotentReceiver
+@InboundChannelAdapter
+@IntegrationComponentScan
+@MessageEndpoint
+@MessagingGateway
+@Payloads
+@Poller
+@Publisher
+@ReleaseStrategy
+@Role
+@Router
+@ServiceActivator
+@Splitter
+@Transformer
+@UseSpelInvoker
+
+
+@EnableIntegration
+@EnableIntegrationManagement
+@EnableMessageHistory
+@EnablePublisher
+@GlobalChannelInterceptor
+@IntegrationConverter
+@IntegrationManagedResource
+@SecuredChannel
 
 
 
