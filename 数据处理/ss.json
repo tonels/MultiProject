@@ -1,57 +1,14 @@
-• Spring Core Annotations (current article)
-• Spring Web Annotations
-• Spring Boot Annotations
-• Spring Scheduling Annotations
-• Spring Data Annotations
-• Spring Bean Annotations
-
-
-## 一、 Spring Core Annotations
-## 二、 Spring Web Annotations
-## 三、 Spring Boot Annotations
-## 四、 Spring Scheduling Annotations
-## 五、 Spring Data Annotations
-## 六、 Spring Bean Annotations
-
-
-
-
-
-## 一、Spring MVC and Spring Bean Annotations
-### 1.1 Spring Web MVC Annotations
-### 1.2 The Spring @Controller and @RestController Annotations with Examples
-### 1.3 Spring @RequestBody and @ResponseBody Annotations
-### 1.4 Spring @GetMapping, @PostMapping, @PutMapping, @DeleteMapping and @PatchMapping
-### 1.5 Spring @Component Annotation Example
-### 1.6 Spring @Service Annotation
-### 1.7 Spring @Repository Annotation
-## 二、Spring DI and Bean Scopes Annotations
-### 2.1 Spring - @DependsOn Annotation Example
-### 2.2 Spring @Bean’s init method and destroyMethod Attributes Example
-### 2.3 Spring @Scope annotation with Prototype Scope Example
-### 2.4 Spring @Scope annotation with Singleton Scope Example
-## 三、Annotation-based Container Configuration
-### 3.1 Spring @Autowired Annotation with Example
-### 3.2 Spring - @Primary Annotation Example
-### 3.3 Spring @PostConstruct and @PreDestroy Example
-### 3.4 Spring @Qualifier Annotation Example
-## 四、Java-based Container Configuration Annotations
-### 4.1 15 Spring Core Annotations
-### 4.2 Spring Java Based Configuration Basics
-### 4.3 Spring Java Based Configuration Example
-### 4.4 Spring @Bean Annotation with Example
-### 4.5 Spring @Configuration Annotation with Example
-### 4.6 Spring @PropertySource Annotation with Example
-### 4.7 Spring @Import Annotation with Example
-### 4.8 Spring @ImportResource Annotation Example
-### 4.9 Spring - @Lazy Annotation Example
-## 五、Spring Scheduling Annotations
-### 5.1 Spring Scheduling Annotations
-## 六、 Spring Data Annotations
-### 6.1
-### 6.2
-## 七、Spring Boot Annotations
-### 7.1 Spring Boot Annotations
-### 7.2 Spring Boot @EnableAutoConfiguration Annotation with Example
-### 7.3 Spring Boot @SpringBootApplication Annotation with Example
-### 7.4 Spring Boot - Creating Asynchronous Methods using @Async Annotation
+### 1.1、connect-console-sink.properties
+### 1.2、connect-console-source.properties
+### 1.3、onnect-distributed.properties
+### 1.4、connect-file-sink.properties
+### 1.5、connect-file-source.properties
+### 1.6、connect-log4j.properties
+### 1.7、connect-standalone.properties
+### 1.8、consumer.properties
+### 1.9、log4j.properties
+### 1.10、producer.properties
+### 1.11、server.properties
+### 1.12、tools-log4j.properties
+### 1.13、trogdor.conf
+### 1.14、zookeeper.properties

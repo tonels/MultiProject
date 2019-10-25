@@ -30,8 +30,4 @@ spring:
       hibernate.cache.use_query_cache: false # 启用查询缓存，不会重复打印SQL
       hibernate.generate_statistics: false
       hibernate.hbm2ddl.auto: none # 自动生成建表语句
-#    hibernate:
-#      enable_lazy_load_no_trans: true
-#      naming:
-#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # 取消驼峰式命名
 

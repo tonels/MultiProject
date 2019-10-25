@@ -19,6 +19,7 @@
         <module>jpaCommon</module>
         <module>queryByExample</module>
         <module>modelTable1</module>
+        <module>springJdbc</module>
     </modules>
 
 </project>

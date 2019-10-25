@@ -21,4 +21,11 @@ public class TailerTest {
 		Tailer tailer = new Tailer(FileUtil.file("e:/tail.txt"), Tailer.CONSOLE_HANDLER, 2);
 		tailer.start();
 	}
+
+
+//	@Test
+//	public void s1(){
+//		FileUtil.
+//	}
+
 }

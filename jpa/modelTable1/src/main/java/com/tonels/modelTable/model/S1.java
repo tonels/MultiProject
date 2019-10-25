@@ -1,5 +1,6 @@
 package com.tonels.modelTable.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,7 +23,8 @@ public class S1 {
 
     private String sName;
 
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate sBirthday;
 
     private String sex;

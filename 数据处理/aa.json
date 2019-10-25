@@ -259,5 +259,9 @@ SpanName
 @IntegrationManagedResource
 @SecuredChannel
 
+## 十八、spring.webMvc
+
+@EnableWebMvc
+
 
 

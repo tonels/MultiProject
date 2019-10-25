@@ -16,5 +16,4 @@ public interface StuRepo extends JpaRepository<S1, Integer>, JpaSpecificationExe
     @Query("update S1 set sName = ?1 where sId = ?2")
     int updateNameById(String sname,Integer id);
 
-
 }
