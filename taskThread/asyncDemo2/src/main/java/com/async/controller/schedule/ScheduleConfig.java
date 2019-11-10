@@ -24,7 +24,7 @@ public class ScheduleConfig {
     @Autowired
     private AsyncService service;
 
-    @Scheduled(cron = "* */10 * * * ?") // 每隔 time，这种表达式更灵活
+    @Scheduled(cron = "* */100 * * * ?") // 每隔 time，这种表达式更灵活
     public void s1() throws InterruptedException , ExecutionException {
         log.info("定时 Start");
 

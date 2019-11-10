@@ -51,7 +51,7 @@ public class EmployeeDataController {
 
         employeeNamesList.setEmployeeNameList(list);
 
-        int a = 5/0;
+//        int a = 5/0;
         return employeeNamesList;
     }
 
