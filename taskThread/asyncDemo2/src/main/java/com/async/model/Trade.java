@@ -2,6 +2,7 @@ package com.async.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
@@ -9,15 +10,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
+@Accessors(chain = true)
 public class Trade {
 
     private long tradeId;
 
     private String buySell;
-
-//    private Currency buyCurrency;
-//
-//    private Currency sellCurrency;
 
     @NumberFormat(pattern = "#,###,###,###.##")
     private BigDecimal amount;

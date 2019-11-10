@@ -28,34 +28,34 @@ public class AsyncService {
 
 	@Async("asyncExecutor")
 	public CompletableFuture<EmployeeNames> getEmployeeName() throws InterruptedException {
-		log.info("getEmployeeName Starts");
+		log.info("获取名字 Starts");
 		EmployeeNames employeeNameData = restTemplate.getForObject("http://localhost:1210/names", EmployeeNames.class);
 
 		log.info("employeeNameData, {}", employeeNameData);
-		Thread.sleep(1000L);	//Intentional delay
-		log.info("employeeNameData completed");
+		Thread.sleep(1000L);	// 延迟 1 秒
+		log.info("获取名字 结束");
 		return CompletableFuture.completedFuture(employeeNameData);
 	}
 
 	@Async("asyncExecutor")
 	public CompletableFuture<EmployeeAddresses> getEmployeeAddress() throws InterruptedException {
-		log.info("getEmployeeAddress Starts");
+		log.info("获取地址 Starts");
 		EmployeeAddresses employeeAddressData = restTemplate.getForObject("http://localhost:1210/addresses", EmployeeAddresses.class);
 
-		log.info("employeeAddressData, {}", employeeAddressData);
-		Thread.sleep(1000L);	//Intentional delay
-		log.info("employeeAddressData completed");
+		log.info("地址数据, {}", employeeAddressData);
+		Thread.sleep(1000L);	// 延迟一秒
+		log.info("获取地址 结束");
 		return CompletableFuture.completedFuture(employeeAddressData);
 	}
 
 	@Async("asyncExecutor")
 	public CompletableFuture<EmployeePhone> getEmployeePhone() throws InterruptedException {
-		log.info("getEmployeePhone Starts");
+		log.info("获取电话 Starts");
 		EmployeePhone employeePhoneData = restTemplate.getForObject("http://localhost:1210/phones", EmployeePhone.class);
 
-		log.info("employeePhoneData, {}", employeePhoneData);
-		Thread.sleep(1000L);	//Intentional delay
-		log.info("employeePhoneData completed");
+		log.info("电话数据, {}", employeePhoneData);
+		Thread.sleep(1000L);	// 延迟一秒
+		log.info("获取电话 结束");
 		return CompletableFuture.completedFuture(employeePhoneData);
 	}
 

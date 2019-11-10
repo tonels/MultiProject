@@ -25,7 +25,7 @@ public class AsyncController {
 
 	@GetMapping("/testAsynch")
 	public void testAsynch() throws InterruptedException, ExecutionException {
-		log.info("testAsynch Start");
+		log.info("测试开始");
 
 		CompletableFuture<EmployeeAddresses> employeeAddress = service.getEmployeeAddress();
 		CompletableFuture<EmployeeNames> employeeName = service.getEmployeeName();
@@ -33,8 +33,8 @@ public class AsyncController {
 
 		CompletableFuture.allOf(employeeAddress, employeeName, employeePhone).join();
 		
-		log.info("EmployeeAddress--> " + employeeAddress.get());
-		log.info("EmployeeName--> " + employeeName.get());
-		log.info("EmployeePhone--> " + employeePhone.get());
+		log.info("雇员地址--> " + employeeAddress.get());
+		log.info("雇员名字--> " + employeeName.get());
+		log.info("雇员电话--> " + employeePhone.get());
 	}
 }

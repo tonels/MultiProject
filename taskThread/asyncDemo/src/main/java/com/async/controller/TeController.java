@@ -23,7 +23,7 @@ public class TeController {
 
     @GetMapping("/")
     public ResultBean t1() throws Exception {
-            // Start the clock
+            // 开始计时
             long start = System.currentTimeMillis();
 
             CompletableFuture<User> page1 = userService.findUser("tonels");
@@ -31,7 +31,7 @@ public class TeController {
             // 等待
             CompletableFuture.allOf(page1).join();
             // 打印结果
-            logger.info("Elapsed time: " + (System.currentTimeMillis() - start));
+            logger.info("总用时：" + (System.currentTimeMillis() - start));
             logger.info("--> " + page1.get());
         return ResultBean.ok();
     }
