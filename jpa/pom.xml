@@ -20,6 +20,7 @@
         <module>queryByExample</module>
         <module>modelTable1</module>
         <module>springJdbc</module>
+        <module>entityManager</module>
     </modules>
 
 </project>

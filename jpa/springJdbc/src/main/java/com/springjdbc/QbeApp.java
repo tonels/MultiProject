@@ -7,8 +7,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 @EntityScan(basePackages ={ "jpaCommon.model","tonels.qbe.model"})
-//@SpringBootApplication(scanBasePackages = {"org.ashu.java.*"})
-//@EnableJpaRepositories(basePackages ={ "org.ashu.java.*"})
 public class QbeApp {
 
     public static void main(String[] args) {
