@@ -4,8 +4,8 @@ import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
-import com.tonels.webDemo2.model.Book;
-import com.tonels.webDemo2.model.User;
+import com.tonels.AsyncHandlerInterceptor.model.Book;
+import com.tonels.AsyncHandlerInterceptor.model.User;
 import org.junit.Test;
 
 import java.util.Arrays;

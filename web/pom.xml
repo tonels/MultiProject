@@ -14,9 +14,8 @@
     <modules>
         <module>webDemo1</module>
         <module>webDemo2</module>
-        <module>webDemo3</module>
+        <module>AsyncHandlerInterceptor</module>
     </modules>
-
 
     <dependencies>
             <dependency>

@@ -5,7 +5,7 @@ import cn.hutool.json.JSON;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.google.common.collect.Maps;
-import com.tonels.webDemo2.model.User;
+import com.tonels.AsyncHandlerInterceptor.model.User;
 import org.junit.Test;
 
 import java.util.HashMap;

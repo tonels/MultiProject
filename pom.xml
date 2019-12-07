@@ -26,6 +26,7 @@
         <module>jpaModel</module>
         <module>taskThread</module>
         <module>springboot-jsp</module>
+        <module>java8</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
