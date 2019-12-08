@@ -21,6 +21,10 @@ import static org.hibernate.jpa.QueryHints.HINT_FETCH_SIZE;
 @Repository
 public interface TodoRepository extends JpaRepository<Todo, Long> {
 
+	/**
+	 * @QueryHints 这里是hibernate中的SQL，修饰，包括返回映射，缓存处理，超时等
+	 * @return
+	 */
 	@QueryHints(value = @QueryHint(name = HINT_FETCH_SIZE, value = "" + Integer.MIN_VALUE))
 	@Query(value = "select t from Todo t")
 	Stream<Todo> streamAll();
