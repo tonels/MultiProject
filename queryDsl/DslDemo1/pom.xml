@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>querydslDemo1</artifactId>
+    <artifactId>DslDemo1</artifactId>
 
     <dependencies>
         <dependency>
@@ -31,6 +31,10 @@
     <build>
         <!--<finalName>${project.artifactId}</finalName>&lt;!&ndash;打jar包去掉版本号&ndash;&gt;-->
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>com.mysema.maven</groupId>
                 <artifactId>apt-maven-plugin</artifactId>

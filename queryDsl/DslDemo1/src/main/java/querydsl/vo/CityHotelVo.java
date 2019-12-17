@@ -1,13 +1,12 @@
 package querydsl.vo;
 
 import com.querydsl.core.Tuple;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import querydsl.entity.QTCity;
 import querydsl.entity.QTHotel;
+
+import java.io.Serializable;
 
 /**
  * 查询条件
@@ -15,7 +14,9 @@ import querydsl.entity.QTHotel;
 
 @Data
 @Accessors(chain = true)
-public class CityHotelVo {
+public class CityHotelVo implements Serializable {
+
+    private static final long serialVersionUID = 2546523L;
 
     private Integer id;
 

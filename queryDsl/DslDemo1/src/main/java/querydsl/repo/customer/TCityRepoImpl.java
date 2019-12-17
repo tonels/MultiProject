@@ -3,12 +3,14 @@ package querydsl.repo.customer;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Pageable;
 import querydsl.entity.QTCity;
 import querydsl.entity.QTHotel;
 import querydsl.vo.CityHotelVo;
+import querydsl.vo.CityHotelVo2;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -48,6 +50,10 @@ public class TCityRepoImpl implements TCityRepoCustom{
         return jpaQuery.fetchResults();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<CityHotelVo> findcityHotel() {
         JPAQuery<CityHotelVo> query = new JPAQuery<>(em);
@@ -64,6 +70,58 @@ public class TCityRepoImpl implements TCityRepoCustom{
         List<Tuple> results = rts.getResults();
 
         return results.stream().map(CityHotelVo::new).collect(Collectors.toList());
+    }
+
+    /**
+     * todo 这里暂未调通
+     * @return
+     */
+    @Override
+    public List<CityHotelVo> findcityHotel_2() {
+        JPAQuery<CityHotelVo> query = new JPAQuery<>(em);
+        QTCity c = QTCity.tCity;
+        QTHotel h = QTHotel.tHotel;
+
+        List<CityHotelVo> results1 = query.select(Projections.bean(CityHotelVo.class,
+                c.id.as("id"),
+                c.name.as("cityName"),
+                h.name.as("hotelName"),
+                h.address.as("address"))).from(c).leftJoin(h).on(c.id.eq(h.city)).fetchResults().getResults();
+        return results1;
+    }
+
+    /**
+     * todo 这里暂未调通
+     * @return
+     */
+    @Override
+    public List<CityHotelVo2> findcityHotel_3() {
+        JPAQuery<CityHotelVo> query = new JPAQuery<>(em);
+        QTCity c = QTCity.tCity;
+        QTHotel h = QTHotel.tHotel;
+
+        JPAQuery<CityHotelVo2> on = query.select(
+                Projections.bean(CityHotelVo2.class,
+                c.name,
+                h.address))
+                .from(c).leftJoin(h).on(c.id.eq(h.city));
+        List<CityHotelVo2> results = on.fetchResults().getResults();
+        return results;
+    }
+
+    @Override
+    public List<CityHotelVo2> findcityHotel_31() {
+        QTCity c = QTCity.tCity;
+        QTHotel h = QTHotel.tHotel;
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+
+        JPAQuery<CityHotelVo2> on = queryFactory.select(
+                Projections.bean(CityHotelVo2.class,
+                        c.name,
+                        h.address))
+                .from(c).leftJoin(h).on(c.id.eq(h.city));
+        List<CityHotelVo2> results = on.fetchResults().getResults();
+        return results;
     }
 
     // select count(tcity0_.map) as col_0_0_ from t_city tcity0_
