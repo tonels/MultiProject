@@ -191,7 +191,7 @@ public class CityController {
     /**
      * todo
      * 此处 tuple -> vo 自动映射，无需手动映射
-     *
+     * 暂时没有调试成功
      * @return
      */
     @GetMapping("/s6-1")
@@ -199,13 +199,11 @@ public class CityController {
         List<CityHotelVo> cityHotelVos = tCityRepo.findcityHotel_2();
         return ResultBean.ok(cityHotelVos);
     }
-
     @GetMapping("/s6-2")
     public ResultBean s6_2() {
         List<CityHotelVo2> cityHotelVos = tCityRepo.findcityHotel_3();
         return ResultBean.ok(cityHotelVos);
     }
-
     @GetMapping("/s6-3")
     public ResultBean s6_3() {
         List<CityHotelVo2> cityHotelVos = tCityRepo.findcityHotel_31();
