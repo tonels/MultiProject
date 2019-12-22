@@ -29,6 +29,14 @@ public class CityHotelVo implements Serializable {
     public CityHotelVo() {
     }
 
+
+    public CityHotelVo(Integer id, String cityName, String hotelName, String address) {
+        this.id = id;
+        this.cityName = cityName;
+        this.hotelName = hotelName;
+        this.address = address;
+    }
+
     public CityHotelVo(Tuple t) {
         this.id = t.get(QTCity.tCity.id);
         this.cityName = t.get(QTCity.tCity.name);

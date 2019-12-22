@@ -13,7 +13,7 @@
 //import org.springframework.data.domain.PageRequest;
 //import org.springframework.data.domain.Sort;
 //import org.springframework.test.context.junit4.SpringRunner;
-//import querydsl.QueryDslRun;
+//import querydsl.tonels.QueryDslRun;
 //import querydsl.entity.QTCity;
 //import querydsl.entity.QTHotel;
 //import querydsl.entity.TCity;
