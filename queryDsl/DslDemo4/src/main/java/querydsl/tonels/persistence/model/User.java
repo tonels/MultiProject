@@ -3,8 +3,12 @@ package querydsl.tonels.persistence.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import querydsl.tonels.validation.PasswordMatches;
+import querydsl.tonels.validation.ValidPassword;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -12,6 +16,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "user_account")
+@PasswordMatches
 public class User extends AbstractAuditingEntity implements Serializable {
 
     @Id
@@ -28,7 +33,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private LocalDate birth;
 
     @Column(length = 60)
+    @ValidPassword
     private String password;
+
+    @NotNull
+    @Size(min = 1)
+    private String matchingPassword;
 
     private boolean enabled;
 

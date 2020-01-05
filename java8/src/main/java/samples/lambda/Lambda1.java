@@ -30,18 +30,11 @@ public class Lambda1 {
     public void t1() {
         List<String> names = Arrays.asList("peter", "anna", "mike", "xenia");
 
-        Collections.sort(names, new Comparator<String>() {
-            @Override
-            public int compare(String a, String b) {
-                return b.compareTo(a);
-            }
-        });
+        Collections.sort(names, (a, b) -> b.compareTo(a));
 
-        Collections.sort(names, (String a, String b) -> {
-            return b.compareTo(a);
-        });
+        Collections.sort(names, Comparator.reverseOrder());
 
-        Collections.sort(names, (String a, String b) -> b.compareTo(a));
+        Collections.sort(names, Comparator.reverseOrder());
 
         Collections.sort(names, (a, b) -> b.compareTo(a));
 
@@ -79,12 +72,6 @@ public class Lambda1 {
 
         // 根据 Id 排序,默认升序
         list.sort(Comparator.comparing(Person2::getId));
-        list.forEach(System.out::println);
-
-        System.out.println("=============");
-
-        // 这里验证过，是不能连续排序的
-        list.sort(Comparator.comparing(Person2::getLastName));
         list.forEach(System.out::println);
     }
 

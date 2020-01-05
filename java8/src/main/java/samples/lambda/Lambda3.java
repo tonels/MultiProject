@@ -63,15 +63,12 @@ public class Lambda3 {
         comparator.compare(p1, p2);             // > 0
         comparator.reversed().compare(p1, p2);  // < 0
 
-
         // Runnables
 
         Runnable runnable = () -> System.out.println(UUID.randomUUID());
         runnable.run();
 
-
         // Callables
-
         Callable<UUID> callable = UUID::randomUUID;
         callable.call();
     }

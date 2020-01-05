@@ -9,10 +9,13 @@ import java.util.List;
 @Entity
 @Data
 public class Role {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Integer nameValue;
+    @Transient
+    private RoleEnum roleEnum;
 
     @ManyToMany(mappedBy = "roles")
     private Collection<User> users;
@@ -23,15 +26,20 @@ public class Role {
             inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
     private List<Privilege> privileges;
 
-    private String name;
 
-    public Role() {
-        super();
+    @PostLoad
+    void fillTransient() {
+        if (nameValue > 0) {
+            this.roleEnum = RoleEnum.of(nameValue);
+        }
     }
 
-    public Role(final String name) {
-        super();
-        this.name = name;
+    @PrePersist
+    void fillPersistent() {
+        if (nameValue != null) {
+            this.nameValue = roleEnum.getRoleNum();
+        }
     }
+
 
 }
