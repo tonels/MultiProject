@@ -1,6 +1,5 @@
 package samples.misc;
 
-import com.google.common.base.Strings;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -16,7 +15,7 @@ import java.util.stream.Stream;
 
 public class Files1 {
 
-// -------------------------遍历单个目录----------------------------------
+    // -------------------------遍历单个目录----------------------------------
     @Test
     public void getDirs1() throws IOException {
         Path dir = Paths.get("D:\\GitRepository\\multiProject\\java8\\src\\main\\resources");
@@ -25,11 +24,12 @@ public class Files1 {
             System.out.println(e.getFileName());
         }
     }
+
     @Test
     public void getDirs2() throws IOException {
-        try (Stream<Path> stream = Files.list(Paths.get("D:\\GitRepository\\multiProject\\java8\\src\\main\\resources"))){
+        try (Stream<Path> stream = Files.list(Paths.get("D:\\GitRepository\\multiProject\\java8\\src\\main\\resources"))) {
             Iterator<Path> ite = stream.iterator();
-            while(ite.hasNext()){
+            while (ite.hasNext()) {
                 Path pp = ite.next();
                 System.out.println(pp.getFileName());
             }
@@ -37,7 +37,8 @@ public class Files1 {
             e.printStackTrace();
         }
     }
-// -------------------------遍历单个目录----------------------------------
+
+    // -------------------------遍历单个目录----------------------------------
 // -------------------------遍历整个目录----------------------------------
     @Test
     public void t2() throws IOException {
@@ -49,9 +50,11 @@ public class Files1 {
 
     private static class FindJavaVisitor extends SimpleFileVisitor<Path> {
         private List<Path> result;
+
         public FindJavaVisitor(List<Path> result) {
             this.result = result;
         }
+
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
             if (file.toString().endsWith(".java")) {
@@ -60,27 +63,29 @@ public class Files1 {
             return FileVisitResult.CONTINUE;
         }
     }
-// -------------------------遍历整个目录----------------------------------
+
+    // -------------------------遍历整个目录----------------------------------
 // -------------------------创建文件----------------------------------
     @Test
-    public void create1(){
+    public void create1() {
         try {
             Files.createDirectories(Paths.get("C://TEST"));
-            if(!Files.exists(Paths.get("C://TEST")))
+            if (!Files.exists(Paths.get("C://TEST")))
                 Files.createFile(Paths.get("C://TEST/test.txt"));
 //            Files.createDirectories(Paths.get("C://TEST/test2.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     // -------------------------创建文件----------------------------------
 // -------------------------输出流----------------------------------
     @Test
-    public void io1(){
+    public void io1() {
         String dir = "D:\\GitRepository\\multiProject\\java8\\src\\main\\resources";
         try {
             Files.createDirectories(Paths.get(dir));
-            if(!Files.exists(Paths.get(dir)))
+            if (!Files.exists(Paths.get(dir)))
                 Files.createFile(Paths.get(dir + "/test.txt"));
             Files.copy(Paths.get(dir + "/txt/test.txt"), System.out);
         } catch (IOException e) {
@@ -88,7 +93,6 @@ public class Files1 {
         }
     }
     // -------------------------输出流----------------------------------
-
 
 
     // -------------------------- BufferedReader ------------------------------
@@ -126,13 +130,17 @@ public class Files1 {
     // -------------------------- BufferedReader 读文件第一行 ------------------------------
 
     // -------------------------- BufferedReader Stream<String> ------------------------------
+
+    /**
+     * @throws IOException print('Hello World1'); print('Hello World2'); print('Hello World3');
+     */
     @Test
     public void testReader2() throws IOException {
         Path path = Paths.get("D:\\GitRepository\\multiProject\\java8\\src\\main\\resources/txt/test.txt");
         String string;
 //        StringBuilder string = null ;
         try (BufferedReader reader = Files.newBufferedReader(path)) {
-            string = reader.lines().collect(Collectors.joining(" "));
+            string = reader.lines().collect(Collectors.joining(""));
         }
         System.out.println(string);
     }
@@ -154,8 +162,10 @@ public class Files1 {
     // -------------------------- Files.walk 基于某一目录下，向下递归查找匹配文件 ------------------------------
 
     // -------------------------- Files.walk 基于某一目录下，向下递归查找匹配文件 ------------------------------
+
     /**
      * find(): src\main\resources\txt\test.txt; target\classes\txt\test.txt
+     *
      * @throws IOException
      */
     @Test
@@ -174,12 +184,14 @@ public class Files1 {
     // -------------------------- Files.walk 基于某一目录下，向下递归查找匹配文件 ------------------------------
 
     /**
-     * list(): java8.iml; pom.xml; src; target
+     * 读指定文件夹下，遍历 一 层级的文件和文件夹，
+     * list(): src\main; src\test
+     *
      * @throws IOException
      */
     @Test
     public void testList() throws IOException {
-        try (Stream<Path> stream = Files.list(Paths.get(""))) {
+        try (Stream<Path> stream = Files.list(Paths.get("src"))) {
             String joined = stream
                     .map(String::valueOf)
                     .filter(path -> !path.startsWith("."))
@@ -190,7 +202,9 @@ public class Files1 {
     }
 
     /**
+     * 读指定文件，按行处理打印
      * print('Hello World1');
+     *
      * @throws IOException
      */
     @Test
@@ -205,6 +219,7 @@ public class Files1 {
     }
 
     /**
+     * 从指定文件，读写到指定文件
      *
      * @throws IOException
      */

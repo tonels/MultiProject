@@ -1,12 +1,15 @@
 package samples.misc;
 
+import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class Maps1 {
 
-    public static void main(String[] args) {
+    @Test
+    public void t1() {
         Map<Integer, String> map = new HashMap<>();
 
         for (int i = 0; i < 10; i++) {
@@ -19,7 +22,7 @@ public class Maps1 {
         map.computeIfPresent(3, (num, val) -> val + num);
         System.out.println(map.get(3));             // val33
 
-        map.computeIfPresent(9, (num, val) -> null);
+        map.computeIfPresent(9, (num, val) -> null); // 相当于 remove 操作
         System.out.println(map.containsKey(9));     // false
 
         map.computeIfAbsent(23, num -> "val" + num);
