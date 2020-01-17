@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutionException;
 
 public class CompletableFuture1 {
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) {
         CompletableFuture<String> future = new CompletableFuture<>();
 
         future.complete("42");

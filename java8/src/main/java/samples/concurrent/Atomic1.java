@@ -5,9 +5,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
+/**
+ * 这里测试AtomicInteger，原子操作
+ * 源码中 AtomicInteger 中
+ * 方法多是 Final 修饰的，
+ * 还有变量 private volatile int value
+ */
 public class Atomic1 {
 
-    private static final int NUM_INCREMENTS = 1000;
+    private static final int NUM_INCREMENTS = 100000;
 
     private static AtomicInteger atomicInt = new AtomicInteger(0);
 
@@ -17,6 +23,7 @@ public class Atomic1 {
         testUpdate();
     }
 
+    // 更新
     private static void testUpdate() {
         atomicInt.set(0);
 
@@ -34,6 +41,7 @@ public class Atomic1 {
         System.out.format("Update: %d\n", atomicInt.get());
     }
 
+    // 计算
     private static void testAccumulate() {
         atomicInt.set(0);
 
@@ -51,6 +59,7 @@ public class Atomic1 {
         System.out.format("Accumulate: %d\n", atomicInt.get());
     }
 
+    // 增加
     private static void testIncrement() {
         atomicInt.set(0);
 
