@@ -7,8 +7,14 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-/**
- */
+/*
+ * 比较时间差
+ * 数据量            10，000，000    50，000，000
+ * sortSequential    844 ms           4724 ms
+ * sortParallel     508 ms             3272 ms
+ * 结论 数据量大的时候，sortParallel 排序会更优化，将近减少时间 1/3 - 1/2
+ * */
+
 public class Streams3 {
 
     public static final int MAX = 5000000;
@@ -51,23 +57,24 @@ public class Streams3 {
 
         long millis = TimeUnit.NANOSECONDS.toMillis(t1 - t0);
         System.out.println(String.format("parallel sort took: %d ms", millis));
+
     }
 
+    // 直接排序
     @Test
-    public void t1(){
+    public void t1() {
         sortSequential(); //844 ms,4724 ms
     }
 
+    //    并行计算排序
     @Test
-    public void t2(){
-        sortParallel(); // 508 ms,
+    public void t2() {
+        sortParallel(); // 508 ms,3272 ms
     }
 
-    /*
-    * 比较时间差
-    * 数据量            10，000，000    50，000，000
-    * sortSequential    844 ms           4724 ms
-    * sortParallel     508 ms             3272 ms
-    * 结论 数据量大的时候，sortParallel 排序会更优化，将近减少 1/3 时间
-    * */
+    public static void main(String[] args) {
+        sortSequential();
+        sortParallel();
+    }
+
 }

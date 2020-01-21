@@ -4,6 +4,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ForkJoinPool;
 
 /**
+ * ConcurrentHashMap 使用
  */
 public class ConcurrentHashMap1 {
 

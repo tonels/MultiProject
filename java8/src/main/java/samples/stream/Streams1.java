@@ -1,15 +1,16 @@
 package samples.stream;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import samples.lambda.Person2;
-import sun.management.Agent;
 
 import java.security.SecureRandom;
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -35,19 +36,19 @@ public class Streams1 {
         Person2 p9 = new Person2(21, "女", "张4");
         Person2 p10 = new Person2(19, "女", "张4");
 
-        list = Lists.newArrayList(p1, p2, p3, p4, p5, p6, p7,p8,p9,p10);
+        list = Lists.newArrayList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
         strings = Lists.newArrayList("a1", "a2", "b1", "c2", "c1");
     }
 
     @Test
-    public void t1(){
+    public void t1() {
         list.stream()
-                .filter(e -> e.getId()>=5)
+                .filter(e -> e.getId() >= 5)
                 .forEach(System.out::println);
     }
 
     @Test
-    public void t2(){
+    public void t2() {
         list.stream()
                 .sorted(Comparator.comparing(Person2::getLastName)) // 默认升序
                 .filter(e -> e.getId() >= 4)
@@ -55,7 +56,7 @@ public class Streams1 {
     }
 
     @Test
-    public void t3(){
+    public void t3() {
         list.stream()
                 .map(e -> e.getId())
 //                .sorted()  // 升序
@@ -64,36 +65,44 @@ public class Streams1 {
     }
 
     @Test
-    public void t4(){
+    public void t4() {
         boolean b = list.stream()
                 .anyMatch(e -> e.getId() == 3);
         System.out.println(b);
     }
 
     @Test
-    public void t5(){
+    public void t5() {
         boolean b = list.stream()
                 .allMatch(e -> e.getId() == 3);
         System.out.println(b);
     }
 
+    /**
+     * 只要有一个匹配的，返回 False
+     * 全都不匹配返回，true
+     */
     @Test
-    public void t6(){
+    public void t6() {
         boolean b = list.stream()
-                .noneMatch(e -> e.getId() == 5);
+                .noneMatch(e -> e.getId() == 4);
         System.out.println(b);
     }
 
     @Test
-    public void t7(){
+    public void t7() {
         long count = list.stream()
                 .filter(e -> e.getId() >= 3)
                 .count();
         System.out.println(count);
     }
 
+    /**
+     * 将集合中某一字段，排序输出
+     * 张1#张2#张3#张4#张4#张4#张4#张5#张6#张8
+     */
     @Test
-    public void t8(){
+    public void t8() {
         Optional<String> reduced =
                 list.stream()
                         .map(e -> e.getLastName())
@@ -114,42 +123,50 @@ public class Streams1 {
 
 
     @Test
-    public void t10(){
-                list.stream()
-                        .filter(p -> p.getLastName().startsWith("P"))
-                        .collect(Collectors.toList())
-                        .forEach(System.out::println);
+    public void t10() {
+        list.stream()
+                .filter(p -> p.getLastName().startsWith("P"))
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
     }
 
-    // Stream分组函数使用
+    /**
+     * Stream 分组函数 使用
+     * 女: 5男: 5
+     */
     @Test
-    public void t11(){
+    public void t11() {
         Map<String, List<Person2>> collect = list.stream()
                 .collect(Collectors.groupingBy(p -> p.getSex()));
-        collect.forEach((age,p) -> System.out.format("age %s: %s\n", age, p));
 
+        collect.forEach((age, p) -> System.out.format("%s: %s", age, p.size()));
     }
-    // Stream平均函数使用
+
+    /**
+     * Stream平均函数使用
+     * 11.0
+     */
     @Test
-    public void t12(){
+    public void t12() {
         Double averageAge = list.stream()
                 .collect(Collectors.averagingInt(p -> p.getId()));
         System.out.println(averageAge);
     }
 
-    // Stream基本统计
+    /**
+     * Stream基本统计
+     * ntSummaryStatistics{count=4, sum=76, min=12, average=19,000000, max=23}
+     */
     @Test
-    public void t13(){
+    public void t13() {
         IntSummaryStatistics ageSummary =
                 list.stream()
                         .collect(Collectors.summarizingInt(p -> p.getId()));
         System.out.println(ageSummary);
-        // IntSummaryStatistics{count=4, sum=76, min=12, average=19,000000, max=23}
-
     }
 
     @Test
-    public void t14(){
+    public void t14() {
         String names = list.stream()
                 .filter(p -> p.getId() >= 18)
                 .map(p -> p.getLastName())
@@ -159,7 +176,7 @@ public class Streams1 {
     }
 
     @Test
-    public void t15(){
+    public void t15() {
         Map<Integer, String> map = list.stream()
                 .collect(Collectors.toMap(
                         p -> p.getId(),
@@ -171,7 +188,7 @@ public class Streams1 {
     }
 
     @Test
-    public void t16(){
+    public void t16() {
         Collector<Person2, StringJoiner, String> personNameCollector =
                 Collector.of(
                         () -> new StringJoiner(" | "),          // supplier
@@ -187,7 +204,7 @@ public class Streams1 {
     }
 
     @Test
-    public void t17(){
+    public void t17() {
         Collector<Person2, StringJoiner, String> personNameCollector =
                 Collector.of(
                         () -> {
@@ -216,7 +233,7 @@ public class Streams1 {
     }
 
     @Test
-    public void t18(){
+    public void t18() {
         Collector<Person2, StringJoiner, String> personNameCollector =
                 Collector.of(
                         () -> {
@@ -244,7 +261,7 @@ public class Streams1 {
     }
 
     @Test
-    public void t19(){
+    public void t19() {
         list.stream()
                 .reduce((p1, p2) -> p1.getId() > p2.getId() ? p1 : p2)
                 .ifPresent(System.out::println);
@@ -252,7 +269,7 @@ public class Streams1 {
     }
 
     @Test
-    public void t20(){
+    public void t20() {
 //        List<Streams11.Person> persons =
 //                Arrays.asList(
 //                        new Streams11.Person("Max", 18),
@@ -273,29 +290,38 @@ public class Streams1 {
 
     }
 
+    /**
+     * todo 这里做了什么处理？
+     * Id=19;name=张4; sex=女
+     */
     @Test
-    public void t21(){
+    public void t21() {
         Person2 reduce = list.stream()
-                .reduce(new Person2(0, "", ""), (p1, p2) -> {
-                    p1.setId(p2.getId());
-                    p1.setLastName(p2.getLastName());
-                    p1.setSex(p2.getSex());
-                    return p1;
+                .reduce(new Person2(0, "", ""), new BinaryOperator<Person2>() {
+                    @Override
+                    public Person2 apply(Person2 p1, Person2 p2) {
+                        p1.setId(p2.getId());
+                        p1.setLastName(p2.getLastName());
+                        p1.setSex(p2.getSex());
+                        return p1;
+                    }
                 });
-        System.out.format("name=%s;name=%s; sex=%s", reduce.getId(),reduce.getLastName(), reduce.getSex());
-
+        System.out.format("Id=%s;name=%s; sex=%s", reduce.getId(), reduce.getLastName(), reduce.getSex());
     }
 
+    /**
+     * todo 这里做了什么处理？
+     * 110,所有 ID 相加
+     */
     @Test
-    public void t22(){
+    public void t22() {
         Integer ageSum = list.stream()
                 .reduce(0, (sum, p) -> sum += p.getId(), (sum1, sum2) -> sum1 + sum2);
         System.out.println(ageSum);
-
     }
 
     @Test
-    public void t23(){
+    public void t23() {
         Integer ageSum = list.stream()
                 .reduce(0,
                         (sum, p) -> {
@@ -312,7 +338,7 @@ public class Streams1 {
     }
 
     @Test
-    public void t24(){
+    public void t24() {
         Integer ageSum = list.parallelStream()
                 .reduce(0,
                         (sum, p) -> {
@@ -327,8 +353,13 @@ public class Streams1 {
 
     }
 
+    /**
+     * todo
+     * 这里又做了什么？
+     *
+     */
     @Test
-    public void t25(){
+    public void t25() {
         Integer ageSum = list
                 .parallelStream()
                 .reduce(0,
@@ -345,8 +376,13 @@ public class Streams1 {
         System.out.println(ageSum);
     }
 
+    /**
+     *
+     * [40809255, 538943691, 1303249479, 1481789808, 2138026296, 1619380947, 2078237706, 300634587, 1214416905, 1764360034]
+     * [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
+     */
     @Test
-    public void t26(){
+    public void t26() {
         SecureRandom secureRandom = new SecureRandom(new byte[]{1, 3, 3, 7});
         int[] randoms = IntStream.generate(secureRandom::nextInt)
                 .filter(n -> n > 0)
@@ -363,7 +399,7 @@ public class Streams1 {
     }
 
     @Test
-    public void t27(){
+    public void t27() {
         List<String> values = new ArrayList<>(100);
         for (int i = 0; i < 100; i++) {
             UUID uuid = UUID.randomUUID();
@@ -379,7 +415,7 @@ public class Streams1 {
                     return s1.compareTo(s2);
                 })
                 .count();
-        System.out.println(count);
+        System.out.println("count" + count);
 
         long t1 = System.nanoTime();
 
@@ -388,8 +424,26 @@ public class Streams1 {
 
     }
 
+    /**
+     * 并行计算 parallelStream
+     * filter:  b1 [main]
+     * map:     b1 [main]
+     * forEach: B1 [main]
+     * filter:  a2 [ForkJoinPool.commonPool-worker-1]
+     * map:     a2 [ForkJoinPool.commonPool-worker-1]
+     * forEach: A2 [ForkJoinPool.commonPool-worker-1]
+     * filter:  c1 [main]
+     * map:     c1 [main]
+     * filter:  c2 [ForkJoinPool.commonPool-worker-1]
+     * map:     c2 [ForkJoinPool.commonPool-worker-1]
+     * forEach: C2 [ForkJoinPool.commonPool-worker-1]
+     * filter:  a1 [ForkJoinPool.commonPool-worker-2]
+     * map:     a1 [ForkJoinPool.commonPool-worker-2]
+     * forEach: C1 [main]
+     * forEach: A1 [ForkJoinPool.commonPool-worker-2]
+     */
     @Test
-    public void t28(){
+    public void t28() {
         strings
                 .parallelStream()
                 .filter(s -> {
@@ -401,60 +455,68 @@ public class Streams1 {
                     return s.toUpperCase();
                 })
                 .forEach(s -> System.out.format("forEach: %s [%s]\n", s, Thread.currentThread().getName()));
-
     }
+
+    /**
+     * ForkJoinPool
+     * 3
+     */
     @Test
-    public void t29(){
+    public void t29() {
         // -Djava.util.concurrent.ForkJoinPool.common.parallelism=5
         ForkJoinPool commonPool = ForkJoinPool.commonPool();
         System.out.println(commonPool.getParallelism());
-        // 3
     }
 
     @Test
-    public void  t30(){
+    public void t30() {
 
     }
+
     @Test
-    public void  t31(){
+    public void t31() {
 
     }
+
     @Test
-    public void  t32(){
+    public void t32() {
 
     }
+
     @Test
-    public void  t33(){
+    public void t33() {
 
     }
+
     @Test
-    public void  t34(){
+    public void t34() {
 
     }
+
     @Test
-    public void  t35(){
+    public void t35() {
 
     }
+
     @Test
-    public void  t36(){
+    public void t36() {
 
     }
+
     @Test
-    public void  t37(){
+    public void t37() {
 
     }
+
     @Test
-    public void  t38(){
+    public void t38() {
 
     }
+
     @Test
-    public void  t39(){
+    public void t39() {
 
     }
-
-
-
-
 
 
 }
