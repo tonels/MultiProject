@@ -12,30 +12,28 @@ import java.util.List;
 @RequestMapping("/")
 public class DkController {
 
-
     private static List<Book> books = null;
+
     static {
         Book b1 = new Book().setId("1").setName("霍乱").setAuthor("马尔克斯").setPrice("12");
         Book b2 = new Book().setId("2").setName("百年孤独").setAuthor("马尔克斯").setPrice("12");
         Book b3 = new Book().setId("3").setName("少年闰土").setAuthor("鲁迅").setPrice("12");
         Book b4 = new Book().setId("4").setName("三味书屋").setAuthor("鲁迅").setPrice("12");
 
-        books=  Lists.newArrayList(b1,b2,b3,b4);
+        books = Lists.newArrayList(b1, b2, b3, b4);
     }
 
     @GetMapping("/book")
-    public Book test(){
+    public Book test() {
         Book book = new Book().setId("1").setName("霍乱").setAuthor("马尔克斯").setPrice("12");
-
-//        Map<String, String> pojoToMap = Splitter.on(",").withKeyValueSeparator(":").split(JSONUtil.toJsonStr(book));
-//        JSONUtil.
         return book;
     }
 
     @GetMapping("/list")
-    public List<Book> testAll(){
-
+    public List<Book> testAll() {
         return books;
     }
+
+
 
 }
