@@ -9,4 +9,5 @@ public class UserCreatedEvent {
     public UserCreatedEvent(User user) {
         this.user = user;
     }
+
 }

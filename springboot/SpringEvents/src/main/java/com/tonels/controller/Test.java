@@ -22,8 +22,8 @@ public class Test {
 
         for (int i = 1; i <= 10; i++) {
             User user = new User("Bob-" + i);
-            userService.addUser(user);
-            log.info("用户创建成功.." ,user.getName());
+            User user1 = userService.addUser(user);
+            log.info("用户创建成功.." ,user1.getName());
         }
         return "success";
     }

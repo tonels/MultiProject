@@ -8,9 +8,12 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @Slf4j
 @Component
 public class UserEventListener {
+
     @Async
     @TransactionalEventListener
     public void processUserCreatedEvent(UserCreatedEvent event) {
-        log.info("用户事件处理..", event.toString());
+        User user = event.getUser();
+        log.info("用户事件处理..", user.toString());
     }
+
 }
