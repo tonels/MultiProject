@@ -74,6 +74,7 @@ public class TCityRepoImpl implements TCityRepoCustom{
     }
 
     /**
+     * 方式一 Bean投影
      * todo 这里暂未调通
      * @return
      */
@@ -92,6 +93,7 @@ public class TCityRepoImpl implements TCityRepoCustom{
     }
 
     /**
+     * 方式二 fields 投影
      * todo 这里暂未调通，全都为null
      * @return
      */
@@ -127,6 +129,7 @@ public class TCityRepoImpl implements TCityRepoCustom{
     }
 
     /**
+     * todo 成功测试
      *  以上方法都是不能正常映射的
      *  经测试，使用构造器方式可以映射
      * @return

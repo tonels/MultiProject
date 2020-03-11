@@ -57,7 +57,7 @@ public class Files1 {
 
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-            if (file.toString().endsWith(".java")) {
+            if (file.toString().endsWith(".txt")) {
                 result.add(file.getFileName());
             }
             return FileVisitResult.CONTINUE;
@@ -164,6 +164,7 @@ public class Files1 {
     // -------------------------- Files.walk 基于某一目录下，向下递归查找匹配文件 ------------------------------
 
     /**
+     * todo 文件会重复读/漏读 问题，main/target
      * find(): src\main\resources\txt\test.txt; target\classes\txt\test.txt
      *
      * @throws IOException
