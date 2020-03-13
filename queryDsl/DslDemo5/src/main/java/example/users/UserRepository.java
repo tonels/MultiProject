@@ -15,12 +15,8 @@
  */
 package example.users;
 
-import com.querydsl.core.types.dsl.StringPath;
-import example.users.QEntity.QUser;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
-import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -34,10 +30,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends MongoRepository<User, String>/*, QuerydslPredicateExecutor<User>*//*, QuerydslBinderCustomizer<QUser>*/ {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.springframework.data.querydsl.binding.QuerydslBinderCustomizer#customize(org.springframework.data.querydsl.binding.QuerydslBindings, com.mysema.query.types.EntityPath)
-	 */
+    /*
+     * (non-Javadoc)
+     * @see org.springframework.data.querydsl.binding.QuerydslBinderCustomizer#customize(org.springframework.data.querydsl.binding.QuerydslBindings, com.mysema.query.types.EntityPath)
+     */
 //	@Override
 //	default public void customize(QuerydslBindings bindings, QUser root) {
 //

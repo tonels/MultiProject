@@ -1,4 +1,4 @@
-package querydsl.tonels.web.controller;
+package querydsl.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
@@ -9,17 +9,16 @@ import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import querydsl.dto.RequestDto;
 import querydsl.entity.QTCity;
 import querydsl.entity.QTHotel;
 import querydsl.entity.TCity;
-import querydsl.tonels.repo.TCityRepo;
+import querydsl.repo.TCityRepo;
 import querydsl.vo.*;
 import utils.PageBean;
 import utils.ResultBean;
@@ -152,30 +151,68 @@ public class CityController {
      * @param vo 前端传参
      * @return
      */
+// =============================== 动态条件，分页测试 ==============================
     @GetMapping("/s5")
-    public ResultBean s5(CityHotelVo vo) {
+    public ResultBean s5(CityHotelVo vo,
+                         @RequestParam(defaultValue = "1") int page,
+                         @RequestParam(defaultValue = "3") int rows,
+                         @RequestParam(defaultValue = "id") String sidx,
+                         @RequestParam(defaultValue = "asc") String sord) {
+
+        Pageable pageable = PageRequest.of(page - 1, rows, "desc".equals(sord) ? Sort.Direction.DESC : Sort.Direction.ASC, sidx);
 
         BooleanBuilder builder = this.builder1(vo);
-        PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Order.asc("id")));
+        QueryResults<Tuple> results = tCityRepo.findCityAndHotelPage(builder, pageable);
 
-        QueryResults<Tuple> results = tCityRepo.findCityAndHotelPage(builder, pageRequest);
+//        Pageable pageable = PageRequest.of(0, 3, Sort.by(Sort.Order.asc("id")));
+//        QueryResults<Tuple> results = tCityRepo.findCityAndHotelPage(builder, pageable);
         List<Tuple> list = results.getResults();
-
-        // 使用无参构造处理
-//        List<Vo1> list1 = Lists.newArrayList();
-//        list.forEach(e -> {
-//            Vo1 vo1 = new Vo1();
-//            vo1.setId(e.get(QTCity.tCity.id));
-//            vo1.setTHotel(e.get(QTHotel.tHotel));
-//            list1.add(vo1);
-//        });
-
         // 使用有参构造处理
         List<Vo1> collect = list.stream().map(Vo1::new).collect(Collectors.toList());
-//        List<Vo1> collect = list.stream().map(e -> new Vo1(e)).collect(Collectors.toList());
-
         return ResultBean.ok(collect);
     }
+
+    // =============================== 动态条件，分页测试 ==============================
+    @GetMapping("/s51")
+    public ResultBean s51(CityHotelVo vo,
+                          @RequestParam(defaultValue = "1") int page,
+                          @RequestParam(defaultValue = "3") int rows,
+                          @RequestParam(defaultValue = "id") String sidx,
+                          @RequestParam(defaultValue = "asc") String sord) {
+
+        Pageable pageable = PageRequest.of(page - 1, rows, "desc".equals(sord) ? Sort.Direction.DESC : Sort.Direction.ASC, sidx);
+
+        BooleanBuilder builder = this.builder1(vo);
+        QueryResults<Tuple> results = tCityRepo.findCityAndHotelPage2(builder, pageable);
+
+        List<Tuple> list = results.getResults();
+        List<Vo1> collect = list.stream().map(Vo1::new).collect(Collectors.toList());
+        return ResultBean.ok(collect);
+    }
+
+
+    public static BooleanBuilder builder1(CityHotelVo vo) {
+
+        QTCity c = QTCity.tCity;
+        QTHotel h = QTHotel.tHotel;
+        BooleanBuilder boob = new BooleanBuilder();
+
+        if (!StrUtil.isBlankIfStr(vo.getId())) {
+            boob.and(c.id.eq(vo.getId()));
+        }
+        if (!StrUtil.isBlankIfStr(vo.getCityName())) {
+            boob.and(c.name.eq(vo.getCityName()));
+        }
+        if (!StrUtil.isBlankIfStr(vo.getHotelName())) {
+            boob.and(h.name.eq(vo.getHotelName()));
+        }
+        if (!StrUtil.isBlankIfStr(vo.getAddress())) {
+            boob.and(h.address.eq(vo.getAddress()));
+        }
+        return boob;
+    }
+
+// =============================== 动态条件，分页测试 ==============================
 
     /**
      * list
@@ -192,6 +229,7 @@ public class CityController {
      * todo
      * 此处 tuple -> vo 自动映射，无需手动映射
      * 暂时没有调试成功
+     *
      * @return
      */
     // ===========================下面映射不了
@@ -200,6 +238,7 @@ public class CityController {
         List<CityHotelVo> cityHotelVos = tCityRepo.findcityHotel_2();
         return ResultBean.ok(cityHotelVos);
     }
+
     @GetMapping("/s6-2")
     public ResultBean s6_2() {
         List<CityHotelVo2> cityHotelVos = tCityRepo.findcityHotel_3();
@@ -209,6 +248,7 @@ public class CityController {
 
     /**
      * 这个方式是可以正常映射的
+     *
      * @return
      */
     @GetMapping("/s6-3")
@@ -223,10 +263,25 @@ public class CityController {
         return ResultBean.ok(cityHotelVos);
     }
 
+    //  --------------------  加上分页参数 pageable ---------------------------
+
+    public BooleanBuilder getBooleanBuilder(RequestDto dto) {
+        QTCity c = QTCity.tCity;
+        QTHotel h = QTHotel.tHotel;
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        if (!StrUtil.isBlankIfStr(dto.getName())) {
+            booleanBuilder.and(c.name.eq(dto.getName()));
+        }
+        if (!StrUtil.isBlankIfStr(dto.getCountry())) {
+            booleanBuilder.and(c.country.like("%" + dto.getCountry().trim() + "%"));
+        }
+        return booleanBuilder;
+    }
 
 
-
-
+    //  --------------------  加上分页参数 pageable ---------------------------
+    // Mysql 内置函数使用
 
 
     @GetMapping("/s7")
@@ -251,26 +306,6 @@ public class CityController {
         return ResultBean.ok(count2);
     }
 
-    public static BooleanBuilder builder1(CityHotelVo vo) {
-
-        QTCity c = QTCity.tCity;
-        QTHotel h = QTHotel.tHotel;
-        BooleanBuilder boob = new BooleanBuilder();
-
-        if (!StrUtil.isBlankIfStr(vo.getId())) {
-            boob.and(c.id.eq(vo.getId()));
-        }
-        if (!StrUtil.isBlankIfStr(vo.getCityName())) {
-            boob.and(c.name.eq(vo.getCityName()));
-        }
-        if (!StrUtil.isBlankIfStr(vo.getHotelName())) {
-            boob.and(h.name.eq(vo.getHotelName()));
-        }
-        if (!StrUtil.isBlankIfStr(vo.getAddress())) {
-            boob.and(h.address.eq(vo.getAddress()));
-        }
-        return boob;
-    }
 
     @GetMapping("/s10")
     public ResultBean getS10() {

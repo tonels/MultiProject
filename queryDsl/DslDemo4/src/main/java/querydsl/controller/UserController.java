@@ -1,4 +1,4 @@
-package querydsl.tonels.web.controller;
+package querydsl.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

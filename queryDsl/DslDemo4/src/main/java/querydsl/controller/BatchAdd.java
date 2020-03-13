@@ -1,7 +1,6 @@
-package querydsl.tonels.web.controller;
+package querydsl.controller;
 
 import com.google.common.collect.Lists;
-import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;

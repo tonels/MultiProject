@@ -1,4 +1,4 @@
-package querydsl.tonels.repo;
+package querydsl.repo;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

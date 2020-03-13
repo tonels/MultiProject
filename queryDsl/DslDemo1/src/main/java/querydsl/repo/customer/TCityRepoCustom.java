@@ -1,4 +1,4 @@
-package querydsl.tonels.repo.customer;
+package querydsl.repo.customer;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
@@ -27,6 +27,9 @@ public interface TCityRepoCustom {
      * @return 查询实体
      */
     public QueryResults<Tuple> findCityAndHotelPage(Predicate predicate, Pageable pageable);
+
+    // 接收排序条件
+    public QueryResults<Tuple> findCityAndHotelPage2(Predicate predicate, Pageable pageable);
 
     // 自定义返回
     public List<CityHotelVo> findcityHotel();

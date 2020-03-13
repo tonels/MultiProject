@@ -1,4 +1,4 @@
-package querydsl.tonels.repo.customer;
+package querydsl.repo.customer;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;

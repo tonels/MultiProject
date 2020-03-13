@@ -1,4 +1,4 @@
-package querydsl.tonels.web.controller;
+package querydsl.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import querydsl.entity.QTCity;
 import querydsl.entity.QTHotel;
 import querydsl.entity.THotel;
-import querydsl.tonels.repo.THotelRepo;
-import querydsl.tonels.repo.customer.HotelRepoCust;
+import querydsl.repo.THotelRepo;
+import querydsl.repo.customer.HotelRepoCust;
 import querydsl.vo.CityHotelVo;
 import utils.PageBean;
 import utils.ResultBean;

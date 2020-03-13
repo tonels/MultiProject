@@ -1,18 +1,24 @@
-package querydsl.tonels.repo.customer;
+package querydsl.repo.customer;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.PathBuilder;
+import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import querydsl.entity.QTCity;
 import querydsl.entity.QTHotel;
 import querydsl.vo.CityHotelVo;
 import querydsl.vo.CityHotelVo2;
 import querydsl.vo.CityHotelVo3;
 
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -35,6 +41,7 @@ public class TCityRepoImpl implements TCityRepoCustom{
         return jpaQuery.fetch();
     }
 
+    // todo 排序写死
     @Override
     public QueryResults<Tuple> findCityAndHotelPage(Predicate predicate, Pageable pageable) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
@@ -45,9 +52,34 @@ public class TCityRepoImpl implements TCityRepoCustom{
                 .on(QTHotel.tHotel.city.longValue().eq(QTCity.tCity.id.longValue()))
                 .where(predicate)
 //                .orderBy(new OrderSpecifier<>(Order.DESC,QTCity.tCity.id))
-                .orderBy(QTCity.tCity.id.asc())
+                .orderBy(QTCity.tCity.id.asc()) // 只能这样写死的
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());
+        return jpaQuery.fetchResults();
+    }
+
+    // todo 接收排序条件
+    // 已完成
+    @Override
+    public QueryResults<Tuple> findCityAndHotelPage2(Predicate predicate, Pageable pageable) {
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+
+        JPAQuery<Tuple> jpaQuery = queryFactory.select(
+                QTCity.tCity.id,
+                QTHotel.tHotel).from(QTCity.tCity)
+                .leftJoin(QTHotel.tHotel)
+                .on(QTHotel.tHotel.city.longValue().eq(QTCity.tCity.id.longValue()))
+                .where(predicate)
+                .offset(pageable.getOffset())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize());
+
+        PathBuilder<Entity> entityPath = new PathBuilder<>(Entity.class, "tCity");
+        for (Sort.Order order : pageable.getSort()) {
+            PathBuilder<Object> path = entityPath.get(order.getProperty());
+            jpaQuery.orderBy(new OrderSpecifier(com.querydsl.core.types.Order.valueOf(order.getDirection().name()), path));
+        }
+
         return jpaQuery.fetchResults();
     }
 
@@ -113,20 +145,7 @@ public class TCityRepoImpl implements TCityRepoCustom{
         List<CityHotelVo2> results = cityHotelVo2QueryResults.getResults();
         return results;
     }
-    @Override
-    public List<CityHotelVo3> findcityHotel_32() {
 
-        JPAQuery<CityHotelVo> query = new JPAQuery<>(em);
-        QTCity c = QTCity.tCity;
-        QTHotel h = QTHotel.tHotel;
-
-        List<CityHotelVo3> results1 = query.select(Projections.fields(CityHotelVo3.class,
-                c.id.as("id"),
-                c.name.as("cityName"),
-                h.name.as("hotelName"),
-                h.address.as("address"))).from(c).leftJoin(h).on(c.id.eq(h.city)).fetchResults().getResults();
-        return results1;
-    }
 
     /**
      * todo 成功测试
@@ -148,6 +167,21 @@ public class TCityRepoImpl implements TCityRepoCustom{
                 .from(c).leftJoin(h).on(c.id.eq(h.city));
         List<CityHotelVo2> results = on.fetchResults().getResults();
         return results;
+    }
+
+    @Override
+    public List<CityHotelVo3> findcityHotel_32() {
+
+        JPAQuery<CityHotelVo> query = new JPAQuery<>(em);
+        QTCity c = QTCity.tCity;
+        QTHotel h = QTHotel.tHotel;
+
+        List<CityHotelVo3> results1 = query.select(Projections.fields(CityHotelVo3.class,
+                c.id.as("id"),
+                c.name.as("cityName"),
+                h.name.as("hotelName"),
+                h.address.as("address"))).from(c).leftJoin(h).on(c.id.eq(h.city)).fetchResults().getResults();
+        return results1;
     }
 
 

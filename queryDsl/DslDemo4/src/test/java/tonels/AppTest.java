@@ -18,8 +18,8 @@
 //import querydsl.entity.QTHotel;
 //import querydsl.entity.TCity;
 //import querydsl.entity.THotel;
-//import querydsl.tonels.repo.TCityRepo;
-//import querydsl.tonels.repo.THotelRepo;
+//import querydsl.repo.TCityRepo;
+//import querydsl.repo.THotelRepo;
 //import querydsl.vo.CityHotelVo;
 //
 //import javax.annotation.Resource;
