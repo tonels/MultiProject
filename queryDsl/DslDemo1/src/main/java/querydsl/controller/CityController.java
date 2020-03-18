@@ -8,6 +8,8 @@ import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,7 @@ import utils.ResultBean;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -246,6 +249,9 @@ public class CityController {
     }
     // ===========================以上映射不了
 
+
+    // ===========================下面测试，映射成功
+
     /**
      * 这个方式是可以正常映射的
      *
@@ -331,6 +337,40 @@ public class CityController {
         }
         return list1;
     }
+
+    // =========================================== 聚 合 函 数 函 数 的 使 用 ==============================
+
+    // =========================================== 引入原生 SQL内置函数示例==============================
+    @GetMapping("/s11")
+    public ResultBean s11(CityHotelVo vo,
+                          @RequestParam(defaultValue = "1") int page,
+                          @RequestParam(defaultValue = "3") int rows,
+                          @RequestParam(defaultValue = "id") String sidx,
+                          @RequestParam(defaultValue = "asc") String sord) {
+
+        Pageable pageable = PageRequest.of(page - 1, rows, "desc".equals(sord) ? Sort.Direction.DESC : Sort.Direction.ASC, sidx);
+
+        BooleanBuilder builder = this.builder1(vo);
+        QTCity c = QTCity.tCity;
+
+        StringTemplate dateExpr = Expressions.stringTemplate("DATE_FORMAT({0},'%Y-%m-%d')", c.cityDateTime);
+        builder.and(dateExpr.gt(vo.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+
+        QueryResults<Tuple> results = tCityRepo.findCityAndHotelPage2(builder, pageable);
+
+        List<Tuple> list = results.getResults();
+        List<Vo1> collect = list.stream().map(Vo1::new).collect(Collectors.toList());
+        return ResultBean.ok(collect);
+    }
+
+
+    @GetMapping("/s12")
+    public ResultBean s12(CityHotelVo vo) {
+        return ResultBean.ok(tCityRepo.dateFormat(vo));
+    }
+
+
+    // =========================================== 引入原生 SQL内置函数示例==============================
 
 
 }

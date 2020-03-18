@@ -3,5 +3,6 @@
 - 分页，排序，聚合函数的使用
 - 以及 Tuple 映射 Vo
 - queryDsl 可自定义返回VO对象实现
+- queryDsl 接收分页参数
 
 

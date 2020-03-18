@@ -2,12 +2,12 @@ package querydsl.repo.customer;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
-import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.PathBuilder;
-import com.querydsl.jpa.JPQLQuery;
+import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +17,7 @@ import querydsl.entity.QTHotel;
 import querydsl.vo.CityHotelVo;
 import querydsl.vo.CityHotelVo2;
 import querydsl.vo.CityHotelVo3;
+import querydsl.vo.CityHotelVo4;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -24,7 +25,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TCityRepoImpl implements TCityRepoCustom{
+public class TCityRepoImpl implements TCityRepoCustom {
 
     @PersistenceContext
     private EntityManager em;
@@ -84,7 +85,6 @@ public class TCityRepoImpl implements TCityRepoCustom{
     }
 
     /**
-     *
      * @return
      */
     @Override
@@ -108,6 +108,7 @@ public class TCityRepoImpl implements TCityRepoCustom{
     /**
      * 方式一 Bean投影
      * todo 这里暂未调通
+     *
      * @return
      */
     @Override
@@ -127,6 +128,7 @@ public class TCityRepoImpl implements TCityRepoCustom{
     /**
      * 方式二 fields 投影
      * todo 这里暂未调通，全都为null
+     *
      * @return
      */
     @Override
@@ -137,9 +139,9 @@ public class TCityRepoImpl implements TCityRepoCustom{
 
         JPAQuery<CityHotelVo2> on = query.select(
                 Projections.bean(CityHotelVo2.class,
-                c.id,
-                c.name,
-                h.address))
+                        c.id,
+                        c.name,
+                        h.address))
                 .from(c).leftJoin(h).on(c.id.eq(h.city));
         QueryResults<CityHotelVo2> cityHotelVo2QueryResults = on.fetchResults();
         List<CityHotelVo2> results = cityHotelVo2QueryResults.getResults();
@@ -149,8 +151,9 @@ public class TCityRepoImpl implements TCityRepoCustom{
 
     /**
      * todo 成功测试
-     *  以上方法都是不能正常映射的
-     *  经测试，使用构造器方式可以映射
+     * 以上方法都是不能正常映射的
+     * 经测试，使用构造器方式可以映射
+     *
      * @return
      */
     @Override
@@ -184,13 +187,6 @@ public class TCityRepoImpl implements TCityRepoCustom{
         return results1;
     }
 
-
-
-
-
-
-
-
     // select count(tcity0_.map) as col_0_0_ from t_city tcity0_
     @Override
     public long count1() {
@@ -221,5 +217,54 @@ public class TCityRepoImpl implements TCityRepoCustom{
                 c.map,
                 c.map.count()
         ).from(c).groupBy(c.map).fetch();
+    }
+
+    // 下面是测试 引入 Mysql 内置函数
+    @Override
+    public QueryResults<Tuple> func1(Predicate predicate, Pageable pageable) {
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+
+        JPAQuery<Tuple> jpaQuery = queryFactory.select(
+                QTCity.tCity.id,
+                QTHotel.tHotel).from(QTCity.tCity)
+                .leftJoin(QTHotel.tHotel)
+                .on(QTHotel.tHotel.city.longValue().eq(QTCity.tCity.id.longValue()))
+                .where(predicate)
+                .offset(pageable.getOffset())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize());
+
+        PathBuilder<Entity> entityPath = new PathBuilder<>(Entity.class, "tCity");
+        for (Sort.Order order : pageable.getSort()) {
+            PathBuilder<Object> path = entityPath.get(order.getProperty());
+            jpaQuery.orderBy(new OrderSpecifier(com.querydsl.core.types.Order.valueOf(order.getDirection().name()), path));
+        }
+
+        return jpaQuery.fetchResults();
+    }
+
+    // todo 待调试
+    @Override
+    public List<CityHotelVo4> dateFormat(CityHotelVo vo) {
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        QTCity c = QTCity.tCity;
+        QTHotel h = QTHotel.tHotel;
+
+        StringTemplate dateFormat = Expressions.stringTemplate("DATE_FORMAT({0},'%Y-%m-%d')", c.cityDateTime);
+
+        // 拼接内置函数
+        JPAQuery<CityHotelVo4> on = queryFactory.select(
+                Projections.constructor(CityHotelVo4.class,
+                        // todo 待调试
+                        c.id.as("id"),
+                        c.name.as("cityName"),
+                        h.name.as("hotelName"),
+                        h.address,
+                        dateFormat.as("formatTime")
+                )
+        )
+                .from(c).leftJoin(h).on(c.id.eq(h.city));
+        List<CityHotelVo4> results = on.fetchResults().getResults();
+        return results;
     }
 }

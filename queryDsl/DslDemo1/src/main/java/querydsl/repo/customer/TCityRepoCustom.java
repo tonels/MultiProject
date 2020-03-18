@@ -1,5 +1,6 @@
 package querydsl.repo.customer;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Predicate;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import querydsl.vo.CityHotelVo;
 import querydsl.vo.CityHotelVo2;
 import querydsl.vo.CityHotelVo3;
+import querydsl.vo.CityHotelVo4;
 
 import java.util.List;
 
@@ -50,4 +52,7 @@ public interface TCityRepoCustom {
     List<Tuple> count3();
 
 
+    QueryResults<Tuple> func1(Predicate predicate, Pageable pageable);
+
+    List<CityHotelVo4> dateFormat(CityHotelVo vo);
 }
