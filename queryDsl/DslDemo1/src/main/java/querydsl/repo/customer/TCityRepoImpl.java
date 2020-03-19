@@ -1,5 +1,6 @@
 package querydsl.repo.customer;
 
+import cn.hutool.system.UserInfo;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
@@ -14,10 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import querydsl.entity.QTCity;
 import querydsl.entity.QTHotel;
-import querydsl.vo.CityHotelVo;
-import querydsl.vo.CityHotelVo2;
-import querydsl.vo.CityHotelVo3;
-import querydsl.vo.CityHotelVo4;
+import querydsl.vo.*;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -112,7 +110,7 @@ public class TCityRepoImpl implements TCityRepoCustom {
      * @return
      */
     @Override
-    public List<CityHotelVo> findcityHotel_2() {
+    public List<CityHotelVo> ProjectionsBean() {
         JPAQuery<CityHotelVo> query = new JPAQuery<>(em);
         QTCity c = QTCity.tCity;
         QTHotel h = QTHotel.tHotel;
@@ -127,31 +125,28 @@ public class TCityRepoImpl implements TCityRepoCustom {
 
     /**
      * 方式二 fields 投影
-     * todo 这里暂未调通，全都为null
-     *
+     * todo 调试成功
      * @return
      */
     @Override
-    public List<CityHotelVo2> findcityHotel_3() {
+    public List<CityHotelVo2> projectionsFields() {
         JPAQuery<CityHotelVo> query = new JPAQuery<>(em);
         QTCity c = QTCity.tCity;
         QTHotel h = QTHotel.tHotel;
 
         JPAQuery<CityHotelVo2> on = query.select(
-                Projections.bean(CityHotelVo2.class,
+                Projections.fields(CityHotelVo2.class,
                         c.id,
                         c.name,
                         h.address))
                 .from(c).leftJoin(h).on(c.id.eq(h.city));
-        QueryResults<CityHotelVo2> cityHotelVo2QueryResults = on.fetchResults();
-        List<CityHotelVo2> results = cityHotelVo2QueryResults.getResults();
-        return results;
+        List<CityHotelVo2> resultList = on.createQuery().getResultList();
+        return resultList;
     }
 
 
     /**
      * todo 成功测试
-     * 以上方法都是不能正常映射的
      * 经测试，使用构造器方式可以映射
      *
      * @return
@@ -187,6 +182,30 @@ public class TCityRepoImpl implements TCityRepoCustom {
         return results1;
     }
 
+//     * List <UserInfo> result = querydsl.from(user)
+//            *     .where(user.valid.eq(true))
+//            *     .select(new QUserInfo(user.firstName, user.lastName))
+//            *     .fetch();
+    @Override
+    public List<CityHotelVo21> findcityHotelCons1() {
+        JPAQuery<CityHotelVo> query = new JPAQuery<>(em);
+        QTCity c = QTCity.tCity;
+        QTHotel h = QTHotel.tHotel;
+
+        JPAQuery<CityHotelVo21> select = query.from(c)
+                .leftJoin(h).on(c.id.eq(h.city))
+                .select(Projections.fields(CityHotelVo21.class,
+                c.id,
+                c.name,
+                h.address));
+        List<CityHotelVo21> results = select.createQuery().getResultList();
+        return results;
+
+
+
+
+    }
+
     // select count(tcity0_.map) as col_0_0_ from t_city tcity0_
     @Override
     public long count1() {
@@ -219,7 +238,11 @@ public class TCityRepoImpl implements TCityRepoCustom {
         ).from(c).groupBy(c.map).fetch();
     }
 
-    // 下面是测试 引入 Mysql 内置函数
+
+
+
+
+//------------------------------- 下面是测试 引入 Mysql 内置函数
     @Override
     public QueryResults<Tuple> func1(Predicate predicate, Pageable pageable) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
@@ -267,4 +290,5 @@ public class TCityRepoImpl implements TCityRepoCustom {
         List<CityHotelVo4> results = on.fetchResults().getResults();
         return results;
     }
+//------------------------------- 以上是测试 引入 Mysql 内置函数
 }

@@ -2,6 +2,7 @@ package querydsl.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,6 +38,8 @@ public class CityHotelVo implements Serializable {
     public CityHotelVo() {
     }
 
+    // todo 这个注解待研究
+    @QueryProjection
     public CityHotelVo(Integer id, String cityName, String hotelName, String address) {
         this.id = id;
         this.cityName = cityName;

@@ -219,7 +219,7 @@ public class CityController {
 
     /**
      * list
-     *
+     * 手动映射
      * @return
      */
     @GetMapping("/s6")
@@ -229,28 +229,37 @@ public class CityController {
     }
 
     /**
-     * todo
-     * 此处 tuple -> vo 自动映射，无需手动映射
-     * 暂时没有调试成功
-     *
+     * todo 暂时没有调试成功
+     * bean 投影方式
      * @return
      */
     // ===========================下面映射不了
     @GetMapping("/s6-1")
     public ResultBean s6_1() {
-        List<CityHotelVo> cityHotelVos = tCityRepo.findcityHotel_2();
+        List<CityHotelVo> cityHotelVos = tCityRepo.ProjectionsBean();
         return ResultBean.ok(cityHotelVos);
     }
 
-    @GetMapping("/s6-2")
-    public ResultBean s6_2() {
-        List<CityHotelVo2> cityHotelVos = tCityRepo.findcityHotel_3();
+    @GetMapping("/s6-4")
+    public ResultBean s6_4() {
+        List<CityHotelVo3> cityHotelVos = tCityRepo.findcityHotel_32();
         return ResultBean.ok(cityHotelVos);
     }
     // ===========================以上映射不了
 
 
     // ===========================下面测试，映射成功
+
+    /**
+     * todo 成功
+     * Fields 投影方式
+     * @return
+     */
+    @GetMapping("/s6-2")
+    public ResultBean s6_2() {
+        List<CityHotelVo2> cityHotelVos = tCityRepo.projectionsFields();
+        return ResultBean.ok(cityHotelVos);
+    }
 
     /**
      * 这个方式是可以正常映射的
@@ -263,11 +272,13 @@ public class CityController {
         return ResultBean.ok(cityHotelVos);
     }
 
-    @GetMapping("/s6-4")
-    public ResultBean s6_4() {
-        List<CityHotelVo3> cityHotelVos = tCityRepo.findcityHotel_32();
+    @GetMapping("/s6-5")
+    public ResultBean s6_5() {
+        List<CityHotelVo21> cityHotelVos = tCityRepo.findcityHotelCons1();
         return ResultBean.ok(cityHotelVos);
     }
+
+    // =========================== 以上测试，映射成功
 
     //  --------------------  加上分页参数 pageable ---------------------------
 
