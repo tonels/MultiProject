@@ -323,7 +323,6 @@ public class CityController {
         return ResultBean.ok(count2);
     }
 
-
     @GetMapping("/s10")
     public ResultBean getS10() {
         List<Tuple> list = tCityRepo.count3();

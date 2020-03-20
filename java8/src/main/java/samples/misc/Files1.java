@@ -231,4 +231,13 @@ public class Files1 {
         lines.add("print('foobar');");
         Files.write(Paths.get("D:\\GitRepository\\multiProject\\java8\\src\\main\\resources/txt", "ls.js"), lines);
     }
+
+
+
+    // todo 测试 Git 提交标签
+
+
+
+
+
 }
