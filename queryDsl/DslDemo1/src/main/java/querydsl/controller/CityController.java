@@ -302,7 +302,6 @@ public class CityController {
     //  --------------------  加上分页参数 pageable ---------------------------
     // Mysql 内置函数使用
 
-
     @GetMapping("/s7")
     public ResultBean s7(CityHotelVo vo) {
         BooleanBuilder builder = this.builder1(vo);
