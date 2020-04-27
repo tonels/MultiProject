@@ -27,6 +27,7 @@
         <module>taskThread</module>
         <module>springboot-jsp</module>
         <module>java8</module>
+        <module>querydsl2</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

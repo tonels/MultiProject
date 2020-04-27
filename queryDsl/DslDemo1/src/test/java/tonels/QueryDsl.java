@@ -1,14 +1,15 @@
 //package tonels;
 //
 //import com.querydsl.apt.Configuration;
+//import com.querydsl.core.types.Expression;
 //import org.junit.Test;
 //
+//import static org.junit.Assert.assertEquals;
+//
 //public class QueryDsl {
+//    private static final Configuration configuration = new Configuration(SQLTemplates.DEFAULT);
 //
-//
-//    private static final Configuration configuration = new Configuration(SQLTemplate.DEFAULT);
-//
-//    private static String toString(Expression<!--?--> e) {
+//    private static String toString(Expression<?> e) {
 //        return new SQLSerializer(configuration).handle(e).toString();
 //    }
 //
@@ -18,7 +19,7 @@
 //
 //    @Test
 //    public void mutable() {
-//        WindowFunction<long> rn = rowNumber().over().orderBy(employee.firstname);
+//        WindowFunction<Long> rn = rowNumber().over().orderBy(employee.firstname);
 //        assertEquals("row_number() over (order by e.FIRSTNAME asc)", toString(rn));
 //        assertEquals("row_number() over (order by e.FIRSTNAME asc, e.LASTNAME asc)", toString(rn.orderBy(employee.lastname)));
 //    }
