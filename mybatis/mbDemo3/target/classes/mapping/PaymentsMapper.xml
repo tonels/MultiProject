@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tonels.mbdemo3.dao.PaymentsMapper">
+    <resultMap id="BaseResultMap" type="tonels.mbdemo3.entity.Payments">
+
+        <id column="customerNumber" jdbcType="INTEGER" property="customernumber"/>
+        <id column="checkNumber" jdbcType="VARCHAR" property="checknumber"/>
+        <result column="paymentDate" jdbcType="DATE" property="paymentdate"/>
+        <result column="aaa" jdbcType="VARCHAR" property="aaa"/>
+        <result column="amount" jdbcType="DECIMAL" property="amount"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+
+        customerNumber, checkNumber, paymentDate, aaa, amount
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="tonels.mbdemo3.entity.PaymentsKey" resultMap="BaseResultMap">
+
+        select
+        <include refid="Base_Column_List"/>
+        from payments
+        where customerNumber = #{customernumber,jdbcType=INTEGER}
+        and checkNumber = #{checknumber,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="tonels.mbdemo3.entity.PaymentsKey">
+
+        delete from payments
+        where customerNumber = #{customernumber,jdbcType=INTEGER}
+        and checkNumber = #{checknumber,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="tonels.mbdemo3.entity.Payments">
+
+        insert into payments (customerNumber, checkNumber, paymentDate,
+        aaa, amount)
+        values (#{customernumber,jdbcType=INTEGER}, #{checknumber,jdbcType=VARCHAR}, #{paymentdate,jdbcType=DATE},
+        #{aaa,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL})
+    </insert>
+    <insert id="insertSelective" parameterType="tonels.mbdemo3.entity.Payments">
+
+        insert into payments
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="customernumber != null">
+                customerNumber,
+            </if>
+            <if test="checknumber != null">
+                checkNumber,
+            </if>
+            <if test="paymentdate != null">
+                paymentDate,
+            </if>
+            <if test="aaa != null">
+                aaa,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="customernumber != null">
+                #{customernumber,jdbcType=INTEGER},
+            </if>
+            <if test="checknumber != null">
+                #{checknumber,jdbcType=VARCHAR},
+            </if>
+            <if test="paymentdate != null">
+                #{paymentdate,jdbcType=DATE},
+            </if>
+            <if test="aaa != null">
+                #{aaa,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="tonels.mbdemo3.entity.Payments">
+
+        update payments
+        <set>
+            <if test="paymentdate != null">
+                paymentDate = #{paymentdate,jdbcType=DATE},
+            </if>
+            <if test="aaa != null">
+                aaa = #{aaa,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where customerNumber = #{customernumber,jdbcType=INTEGER}
+        and checkNumber = #{checknumber,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="tonels.mbdemo3.entity.Payments">
+
+        update payments
+        set paymentDate = #{paymentdate,jdbcType=DATE},
+        aaa = #{aaa,jdbcType=VARCHAR},
+        amount = #{amount,jdbcType=DECIMAL}
+        where customerNumber = #{customernumber,jdbcType=INTEGER}
+        and checkNumber = #{checknumber,jdbcType=VARCHAR}
+    </update>
+</mapper>

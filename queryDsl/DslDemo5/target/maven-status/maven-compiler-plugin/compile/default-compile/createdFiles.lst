@@ -1,0 +1,13 @@
+example\users\QUser_Address.class
+example\users\QUser_Picture.class
+example\users\User$Address.class
+example\users\QEntity\QUser_Address.class
+example\users\Application.class
+example\users\QUser.class
+example\users\UserInitializer.class
+example\users\UserRepository.class
+example\users\User$Picture.class
+example\users\QEntity\QUser.class
+example\users\User.class
+example\users\web\UserController.class
+example\users\QEntity\QUser_Picture.class

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!--数据库链接地址账号密码-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.1.140:3306/classicmodels?useUnicode=true&amp;characterEncoding=utf8"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+
+        <!--生成dataobject类的存放位置-->
+        <javaModelGenerator targetPackage="tonels.mbdemo3.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--生成映射文件存放位置-->
+        <sqlMapGenerator targetPackage="mapping" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!--生成Dao类的存放位置-->
+        <!-- 客户端代码，生成易于使用的针对Model对象和XML配置文件的代码
+              type="ANNOTATIONDMAPPER"，生成Java Model和基于注解的Mapper 对象
+              type="MIXEDMAPPER",生成基于注解的Java Model和相应的Mapper对象
+              type="XMLMAPPER",生成SQLMap XML 文件和独立的Mapper接口
+         -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="tonels.mbdemo3.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--生成对应表和类名-->
+        <table tableName="customers" domainObjectName="ustomers" enableCountByExample="false"
+               enableUpdateByExample="false" enableSelectByExample="false"
+               enableDeleteByExample="false" selectByExampleQueryId="false"></table>
+
+        <table tableName="orders" domainObjectName="orders" enableCountByExample="false"
+               enableUpdateByExample="false" enableSelectByExample="false"
+               enableDeleteByExample="false" selectByExampleQueryId="false"></table>
+
+        <table tableName="employees" domainObjectName="employees" enableCountByExample="false"
+               enableUpdateByExample="false" enableSelectByExample="false"
+               enableDeleteByExample="false" selectByExampleQueryId="false"></table>
+
+        <table tableName="offices" domainObjectName="offices" enableCountByExample="false"
+               enableUpdateByExample="false" enableSelectByExample="false"
+               enableDeleteByExample="false" selectByExampleQueryId="false"></table>
+
+        <table tableName="orderdetails" domainObjectName="orderdetails" enableCountByExample="false"
+               enableUpdateByExample="false" enableSelectByExample="false"
+               enableDeleteByExample="false" selectByExampleQueryId="false"></table>
+
+        <table tableName="payments" domainObjectName="payments" enableCountByExample="false"
+               enableUpdateByExample="false" enableSelectByExample="false"
+               enableDeleteByExample="false" selectByExampleQueryId="false"></table>
+
+        <table tableName="productlines" domainObjectName="productlines" enableCountByExample="false"
+               enableUpdateByExample="false" enableSelectByExample="false"
+               enableDeleteByExample="false" selectByExampleQueryId="false"></table>
+
+        <table tableName="products" domainObjectName="products" enableCountByExample="false"
+               enableUpdateByExample="false" enableSelectByExample="false"
+               enableDeleteByExample="false" selectByExampleQueryId="false"></table>
+
+    </context>
+</generatorConfiguration>
