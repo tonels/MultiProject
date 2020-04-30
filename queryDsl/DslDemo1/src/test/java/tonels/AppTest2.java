@@ -177,5 +177,28 @@ public class AppTest2 {
         System.out.println(list.toString());
     }
 
+    /**
+     * row_number() 测试，
+     * todo 注意这里 row_number()只是8.0以后版本才支持
+     * select tCity.country, ROW_NUMBER( ) OVER ( ORDER BY tCity.country )
+     * from TCity tCity
+     * group by tCity.country
+     */
+    @Test
+    public void rowNumber2() {
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        StringTemplate Expr = Expressions.stringTemplate("ROW_NUMBER( ) OVER ( ORDER BY {0} )",
+                qtCity.country);
+
+        final List<Tuple> list = queryFactory.select(
+                qtCity.country,
+                Expr
+        ).from(qtCity).groupBy(qtCity.country).fetchResults().getResults();
+        System.out.println(list.toString());
+    }
+
+
+
+
 
 }
