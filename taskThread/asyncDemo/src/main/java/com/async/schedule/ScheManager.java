@@ -1,10 +1,7 @@
 package com.async.schedule;
 
-import com.async.Run;
 import com.async.model.User;
 import com.async.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -25,8 +22,8 @@ public class ScheManager {
         // Start the clock
         long start = System.currentTimeMillis();
         // Kick of multiple, asynchronous lookups
-        CompletableFuture < User > page1 = userService.findUser("PivotalSoftware");
-        CompletableFuture < User > page2 = userService.findUser("CloudFoundry");
+        CompletableFuture<User> page1 = userService.findUser("PivotalSoftware");
+        CompletableFuture<User> page2 = userService.findUser("CloudFoundry");
 //        CompletableFuture < User > page3 = userService.findUser("Spring-Projects");
 //        CompletableFuture < User > page4 = userService.findUser("RameshMF");
         // Wait until they are all done
@@ -36,8 +33,6 @@ public class ScheManager {
 //        System.out.println(page3.get());
 //        System.out.println(page4.get());
     }
-
-
 
 
 }
