@@ -1,5 +1,6 @@
 package tonels;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.google.common.collect.Lists;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
@@ -24,6 +25,7 @@ import querydsl.vo.CityHotelVo;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = QueryDslRun.class)
@@ -91,8 +93,10 @@ public class AppTest {
         PageRequest page = PageRequest.of(0, 10, Sort.Direction.ASC, "id");
         //查找结果
         Page<TCity> tCityPage = tCityRepository.findAll(predicate,page);
-        List<TCity> content = tCityPage.getContent();
-        System.out.println(content);
+//        List<TCity> content = tCityPage.getContent();
+
+        final Page<Map<String, Object>> map = tCityPage.map(BeanUtil::beanToMap);
+        System.out.println(map.toString());
     }
 
     //多表操作
