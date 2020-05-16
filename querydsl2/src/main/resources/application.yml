@@ -4,7 +4,8 @@ server:
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://192.168.1.140:3306/proce?autoReconnect=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/proce?autoReconnect=true&useSSL=false
+#    url: jdbc:mysql://192.168.1.140:3306/proce?autoReconnect=true&useSSL=false
     username: root
     password: root
     hikari:
