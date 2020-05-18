@@ -190,4 +190,27 @@ public class AppTest {
 
     }
 
+
+
+
+    @Test
+    public void select6() {
+//        ConstructorExpression<CustConstruct> c =
+//                Projections.constructor(
+//                        CustConstruct.class,
+//                        cm.contactLastName,
+//                        cm.customerNumber
+//                );
+//
+//        JPAQueryFactory jqf = new JPAQueryFactory(em);
+//        System.out.println(c.toString());
+//
+//        jqf.select(c).from(cm).where(cm.customerNumber.in(1,2,3)).on(cm.customerNumber.eq(3)).o;
+//        fetch.forEach(System.out::println);
+
+    }
+
+
+
+
 }
