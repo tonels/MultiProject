@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.concurrent.TimeUnit;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/radission")
 public class TeController {
 
     @Autowired
@@ -20,6 +20,11 @@ public class TeController {
 
     static long i = 20;
     static long sum = 300;
+
+    @GetMapping("/")
+    public String test(){
+        return "gee";
+    }
 
 //    ========================== String =======================
     @GetMapping("/set/{key}")

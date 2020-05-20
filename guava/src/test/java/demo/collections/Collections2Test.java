@@ -30,10 +30,8 @@ public class Collections2Test {
 
     public void shouldFilterCollection() {
         final Collection<Person> filtered = Collections2.filter(people,
-                new Predicate<Person>() {
-                    public boolean apply(@Nullable Person input) {
-                        return input != null && input.getFirstName().startsWith("M");
-                    }
+                input -> {
+                    return input != null && input.getFirstName().startsWith("M");
                 });
         filtered.forEach(System.out::println);
 
