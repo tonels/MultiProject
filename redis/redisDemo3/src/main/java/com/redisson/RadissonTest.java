@@ -1,4 +1,4 @@
-package com.radisson;
+package com.redisson;
 
 import org.junit.Test;
 import org.redisson.Redisson;
