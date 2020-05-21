@@ -21,12 +21,22 @@ public class TeController {
     static long i = 20;
     static long sum = 300;
 
-//    ========================== String =======================
+//    ================================== String 测试开始 =======================
+    // 永久
     @GetMapping("/set/{key}")
     public String s1(@PathVariable String key) {
         // 设置字符串
         RBucket<String> keyObj = redissonClient.getBucket(key);
         keyObj.set(key + "1-v1");
+        return key;
+    }
+
+    // 有效时长
+    @GetMapping("/set-time/{key}")
+    public String s1time(@PathVariable String key) {
+        // 设置字符串
+        RBucket<String> keyObj = redissonClient.getBucket(key);
+        keyObj.set(key + "1-v1",30,TimeUnit.SECONDS);
         return key;
     }
 
@@ -37,6 +47,19 @@ public class TeController {
         String s = keyObj.get();
         return s;
     }
+//    ================================== String 测试结束 =======================
+
+    //    ==================================== String 测试结束 =======================
+    @GetMapping("/set/{key}")
+    public String s2(@PathVariable String key) {
+        // 设置字符串
+        RBucket<String> keyObj = redissonClient.getBucket(key);
+        keyObj.set(key + "1-v1");
+        return key;
+    }
+
+
+//    ==================================== String 测试结束 =======================
 
     //    ========================== hash =======================-=
 
@@ -68,6 +91,39 @@ public class TeController {
         keys1.forEach(System.out::println);
         return keys.toString();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // ================== ==============读写锁测试 =============================
 
