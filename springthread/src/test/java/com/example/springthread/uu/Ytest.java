@@ -1,12 +1,18 @@
 package com.example.springthread.uu;
 
+import com.example.springthread.SpringthreadApplication;
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
 
+//@SpringBootTest
+//@RunWith(SpringthreadApplication.class)
 public class Ytest {
     void startThreads(ThreadPoolTaskExecutor taskExecutor, CountDownLatch countDownLatch, int numThreads) {
         for (int i = 0; i < numThreads; i++) {
@@ -21,7 +27,7 @@ public class Ytest {
         }
     }
 
-    @Test
+    @org.junit.Test
     public void whenUsingDefaults_thenSingleThread() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
         taskExecutor.afterPropertiesSet();
