@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.concurrent.TimeUnit;
 
 @RestController
-@RequestMapping("/radission")
+@RequestMapping("/redisson")
 public class TeController {
 
     @Autowired
@@ -22,12 +22,20 @@ public class TeController {
     static long sum = 300;
 
     @GetMapping("/")
-    public String test(){
+    public String test() {
         return "gee";
     }
 
-//    ========================== String =======================
-//    ================================== String 测试开始 =======================
+    // 查询所有的 keys
+    @GetMapping("/all")
+    public String all() {
+        RKeys keys = redissonClient.getKeys();
+        Iterable<String> keys1 = keys.getKeys();
+        keys1.forEach(System.out::println);
+        return keys.toString();
+    }
+
+    //    ================================== String 测试开始 =======================
     // 永久
     @GetMapping("/set/{key}")
     public String s1(@PathVariable String key) {
@@ -42,7 +50,7 @@ public class TeController {
     public String s1time(@PathVariable String key) {
         // 设置字符串
         RBucket<String> keyObj = redissonClient.getBucket(key);
-        keyObj.set(key + "1-v1",30,TimeUnit.SECONDS);
+        keyObj.set(key + "1-v1", 30, TimeUnit.SECONDS);
         return key;
     }
 
@@ -53,29 +61,18 @@ public class TeController {
         String s = keyObj.get();
         return s;
     }
-//    ================================== String 测试结束 =======================
-
-    //    ==================================== String 测试结束 =======================
-    @GetMapping("/set/{key}")
-    public String s2(@PathVariable String key) {
-        // 设置字符串
-        RBucket<String> keyObj = redissonClient.getBucket(key);
-        keyObj.set(key + "1-v1");
-        return key;
-    }
-
 
 //    ==================================== String 测试结束 =======================
 
-    //    ========================== hash =======================-=
+//    ========================== hash 测试开始=======================-=
 
     @GetMapping("/hset/{key}")
     public String h1(@PathVariable String key) {
 
         Ur ur = new Ur();
-        ur.setId(MathUtil.randomLong(1,20));
+        ur.setId(MathUtil.randomLong(1, 20));
         ur.setName(key);
-      // 存放 Hash
+        // 存放 Hash
         RMap<String, Ur> ss = redissonClient.getMap("UR");
         ss.put(ur.getId().toString(), ur);
         return ur.toString();
@@ -89,60 +86,58 @@ public class TeController {
         return ur.toString();
     }
 
-    // 查询所有的 keys
-    @GetMapping("/all")
-    public String all(){
-        RKeys keys = redissonClient.getKeys();
-        Iterable<String> keys1 = keys.getKeys();
-        keys1.forEach(System.out::println);
-        return keys.toString();
+// =================================   hash 测试结束 --=-=-=-=-=-
+
+
+    // =================================   set 测试开始 --=-=-=-=-=---------------------
+    @GetMapping("/set-set/{key}")
+    public String set_set1(@PathVariable String key) {
+
+        Ur ur = new Ur();
+        ur.setId(MathUtil.randomLong(1, 20));
+        ur.setName(key);
+
+        RSet<Ur> set = redissonClient.getSet("SET-UR");
+        boolean add = set.add(ur);
+        return null;
+    }
+
+    @GetMapping("/set-get/{key}")
+    public String set_get1(@PathVariable String key) {
+
+        RSet<Ur> set = redissonClient.getSet("SET-UR");
+        String name = set.getName();
+        return name;
     }
 
 
+// =================================   set 测试结束 --=-=-=-=-=----------------------
+
+// =================================================   zset 测试开始 --=-=-=-=-=----------------------
+//@GetMapping("/zset-set/{key}")
+//public String zset_set1(@PathVariable String key) {
+//
+//    RSet<Ur> set = redissonClient.setgetSet("SET-UR");
+//    String name = set.getName();
+//    return name;
+//}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// =================================================   zset 测试结束 --=-=-=-=-=----------------------
 
 
     // ================== ==============读写锁测试 =============================
 
     @GetMapping("/rw/set/{key}")
-    public void rw_set(){
+    public void rw_set() {
 //        RedissonLock.
         RBucket<String> ls_count = redissonClient.getBucket("LS_COUNT");
-        ls_count.set("300",360000000l, TimeUnit.SECONDS);
+        ls_count.set("300", 360000000l, TimeUnit.SECONDS);
     }
 
     // 减法运算
     @GetMapping("/jf")
-    public void jf(){
+    public void jf() {
 
         String key = "S_COUNT";
 
@@ -159,12 +154,12 @@ public class TeController {
         while (i == 0) {
             if (atomicLong.get() > 0) {
                 long l = atomicLong.getAndDecrement();
-                        try {
-                            Thread.sleep(1000l);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                i --;
+                try {
+                    Thread.sleep(1000l);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                i--;
                 System.out.println(Thread.currentThread().getName() + "->" + i + "->" + l);
             }
         }
@@ -173,7 +168,7 @@ public class TeController {
     }
 
     @GetMapping("/rw/get")
-    public String rw_get(){
+    public String rw_get() {
 
         String key = "S_COUNT";
         Runnable r = new Runnable() {
@@ -185,7 +180,7 @@ public class TeController {
                 }
                 if (atomicLong.get() > 0) {
                     long l = atomicLong.getAndDecrement();
-                    i --;
+                    i--;
                     System.out.println(Thread.currentThread().getName() + "->" + i + "->" + l);
                 }
             }
