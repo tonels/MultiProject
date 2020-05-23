@@ -79,7 +79,7 @@ public class Streams1 {
     }
 
     /**
-     * 只要有一个匹配的，返回 False
+     * 有一个匹配的，返回 False
      * 全都不匹配返回，true
      */
     @Test

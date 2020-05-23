@@ -1,6 +1,5 @@
 package samples.stream;
 
-import com.google.common.collect.Maps;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -127,14 +126,13 @@ public class Streams8 {
     }
 
     /**
-     *
      * ,JohnJulie
      */
     @Test
     public void t9_1() {
         List<User> users = Arrays.asList(new User("John", 30), new User("Julie", 35));
         String reduce = users.stream()
-                .reduce(",",(partialAgeResult, user) -> partialAgeResult + user.getName(), String::concat);
+                .reduce(",", (partialAgeResult, user) -> partialAgeResult + user.getName(), String::concat);
         System.out.println(reduce);
     }
 
@@ -143,7 +141,7 @@ public class Streams8 {
      */
     @Test
     public void t9_2() {
-        List<User> users = Arrays.asList(new User("John", 30), new User("Julie", 35),new User("Tolj", 40));
+        List<User> users = Arrays.asList(new User("John", 30), new User("Julie", 35), new User("Tolj", 40));
         User user = users.stream()
                 .reduce((u1, u2) -> new User(u1.getName(), u2.getAge())).orElse(null);
         System.out.println(user);
@@ -151,7 +149,7 @@ public class Streams8 {
 
     @Test
     public void t10() {
-        List<User> users = Arrays.asList(new User("John", 30,new Rating()), new User("Julie", 35,new Rating()),new User("Tolj", 40,new Rating()));
+        List<User> users = Arrays.asList(new User("John", 30, new Rating()), new User("Julie", 35, new Rating()), new User("Tolj", 40, new Rating()));
         Rating averageRating = users.stream()
                 .reduce(new Rating(),
                         (rating, user) -> Rating.average(rating, user.getRating()),
@@ -183,33 +181,33 @@ public class Streams8 {
      * 分组
      * MALE : [zc, zb, zm]
      * FEMALE : [as, zx, zv, zn]
-     *  这个示例返回，分组，并将原始集合处理后的数据
+     * 这个示例返回，分组，并将原始集合处理后的数据
      */
-     @Test
+    @Test
     public void t12() {
         List<Person> roster = Arrays.asList(
-                new Person("as", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zx", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zc", LocalDate.now(), Person.Sex.MALE,"Test@",12),
-                new Person("zv", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zb", LocalDate.now(), Person.Sex.MALE,"Test@",12),
-                new Person("zn", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zm", LocalDate.now(), Person.Sex.MALE,"Test@",12)
+                new Person("as", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zx", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zc", LocalDate.now(), Person.Sex.MALE, "Test@", 12),
+                new Person("zv", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zb", LocalDate.now(), Person.Sex.MALE, "Test@", 12),
+                new Person("zn", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zm", LocalDate.now(), Person.Sex.MALE, "Test@", 12)
         );
 
-         Map<Person.Sex, List<String>> namesByGender =
-                 roster.stream()
-                         .collect(
-                                 Collectors.groupingBy(
-                                         Person::getGender,
-                                         Collectors.mapping(
-                                                 Person::getName,
-                                                 Collectors.toList()))
-                         );
-         namesByGender.forEach((k,v) -> System.out.println(k + " : " + v));
+        Map<Person.Sex, List<String>> namesByGender =
+                roster.stream()
+                        .collect(
+                                Collectors.groupingBy(
+                                        Person::getGender,
+                                        Collectors.mapping(
+                                                Person::getName,
+                                                Collectors.toList()))
+                        );
+        namesByGender.forEach((k, v) -> System.out.println(k + " : " + v));
 
 
-     }
+    }
 
     /**
      * 分组函数使用
@@ -218,20 +216,20 @@ public class Streams8 {
     @Test
     public void t12_2() {
         List<Person> roster = Arrays.asList(
-                new Person("as", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zx", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zc", LocalDate.now(), Person.Sex.MALE,"Test@",12),
-                new Person("zv", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zb", LocalDate.now(), Person.Sex.MALE,"Test@",12),
-                new Person("zn", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zm", LocalDate.now(), Person.Sex.MALE,"Test@",12)
+                new Person("as", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zx", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zc", LocalDate.now(), Person.Sex.MALE, "Test@", 12),
+                new Person("zv", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zb", LocalDate.now(), Person.Sex.MALE, "Test@", 12),
+                new Person("zn", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zm", LocalDate.now(), Person.Sex.MALE, "Test@", 12)
         );
 
         Map<Person.Sex, List<Person>> collect = roster.stream()
                 .collect(
                         Collectors.groupingBy(Person::getGender)
                 );
-        collect.forEach((k,v) -> System.out.println(k + " : " + v));
+        collect.forEach((k, v) -> System.out.println(k + " : " + v));
     }
 
     /**
@@ -240,13 +238,13 @@ public class Streams8 {
     @Test
     public void t13() {
         List<Person> roster = Arrays.asList(
-                new Person("as", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zx", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zc", LocalDate.now(), Person.Sex.MALE,"Test@",12),
-                new Person("zv", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zb", LocalDate.now(), Person.Sex.MALE,"Test@",12),
-                new Person("zn", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zm", LocalDate.now(), Person.Sex.MALE,"Test@",12)
+                new Person("as", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zx", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zc", LocalDate.now(), Person.Sex.MALE, "Test@", 12),
+                new Person("zv", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zb", LocalDate.now(), Person.Sex.MALE, "Test@", 12),
+                new Person("zn", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zm", LocalDate.now(), Person.Sex.MALE, "Test@", 12)
         );
 
         Averager averageCollect = roster.stream()
@@ -265,13 +263,13 @@ public class Streams8 {
     @Test
     public void t14() {
         List<Person> roster = Arrays.asList(
-                new Person("as", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zx", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zc", LocalDate.now(), Person.Sex.MALE,"Test@",12),
-                new Person("zv", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zb", LocalDate.now(), Person.Sex.MALE,"Test@",12),
-                new Person("zn", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zm", LocalDate.now(), Person.Sex.MALE,"Test@",12)
+                new Person("as", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zx", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zc", LocalDate.now(), Person.Sex.MALE, "Test@", 12),
+                new Person("zv", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zb", LocalDate.now(), Person.Sex.MALE, "Test@", 12),
+                new Person("zn", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zm", LocalDate.now(), Person.Sex.MALE, "Test@", 12)
         );
 
         Map<Person.Sex, Integer> totalAgeByGender =
@@ -284,7 +282,7 @@ public class Streams8 {
                                                 Person::getAge,
                                                 Integer::sum))
                         );
-        totalAgeByGender.forEach((k,v) -> System.out.println(k + " : " + v));
+        totalAgeByGender.forEach((k, v) -> System.out.println(k + " : " + v));
     }
 
     /**
@@ -295,13 +293,13 @@ public class Streams8 {
     @Test
     public void t15() {
         List<Person> roster = Arrays.asList(
-                new Person("as", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zx", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zc", LocalDate.now(), Person.Sex.MALE,"Test@",12),
-                new Person("zv", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zb", LocalDate.now(), Person.Sex.MALE,"Test@",12),
-                new Person("zn", LocalDate.now(), Person.Sex.FEMALE,"Test@",12),
-                new Person("zm", LocalDate.now(), Person.Sex.MALE,"Test@",12)
+                new Person("as", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zx", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zc", LocalDate.now(), Person.Sex.MALE, "Test@", 12),
+                new Person("zv", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zb", LocalDate.now(), Person.Sex.MALE, "Test@", 12),
+                new Person("zn", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zm", LocalDate.now(), Person.Sex.MALE, "Test@", 12)
         );
 
         Map<Person.Sex, Double> averageAgeByGender = roster.stream()
@@ -309,14 +307,8 @@ public class Streams8 {
                         Collectors.groupingBy(
                                 Person::getGender,
                                 Collectors.averagingInt(Person::getAge)));
-        averageAgeByGender.forEach((k,v) -> System.out.println(k + " : " + v));
+        averageAgeByGender.forEach((k, v) -> System.out.println(k + " : " + v));
     }
-
-
-
-
-
-
 
 
 }
