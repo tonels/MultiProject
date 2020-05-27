@@ -5,7 +5,10 @@ import org.junit.Before;
 import org.junit.Test;
 import samples.lambda.Person2;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,7 +36,7 @@ public class Te {
     }
 
     @Test
-    public void t1(){
+    public void t1() {
 //        list.stream().peek()
 
 
@@ -45,7 +48,7 @@ public class Te {
      * 10
      */
     @Test
-    public void t2(){
+    public void t2() {
         List<Integer> list = Arrays.asList(1, 10, 3, 7, 5);
         int a = list.stream()
                 .peek(num -> System.out.println("will filter " + num))
@@ -60,7 +63,7 @@ public class Te {
      * 1
      */
     @Test
-    public void t21(){
+    public void t21() {
         List<Integer> list = Arrays.asList(1, 10, 3, 7, 5);
         int a = list.stream()
                 .peek(num -> System.out.println("will filter " + num))
@@ -75,7 +78,7 @@ public class Te {
      * 1
      */
     @Test
-    public void t22(){
+    public void t22() {
         List<Integer> list = Arrays.asList(1, 10, 3, 7, 5);
         final List<Integer> collect = list.stream()
                 .peek(num -> System.out.println("will filter " + num))
@@ -94,7 +97,7 @@ public class Te {
      * 2
      */
     @Test
-    public  void testPeek() {
+    public void testPeek() {
         System.out.println();
         System.out.println("Test peek start");
         Collection<String> collection = Arrays.asList("a1", "a2", "a3", "a1");
@@ -153,7 +156,7 @@ public class Te {
      * [2, 4, 6, 8]
      */
     @Test
-    public void t3(){
+    public void t3() {
         List<Integer> list = new ArrayList<>();
         List<Integer> result = Stream.of(1, 2, 3, 4)
                 .peek(x -> list.add(x))
@@ -162,9 +165,26 @@ public class Te {
 
         System.out.println(list);
         System.out.println(result);
-
     }
 
+    /**
+     * [13, 2, 4, 6, 1, 10, 3, 31, 21, 19]
+     * [男, 男, 男, 女, 男, 男, 女, 女, 女, 女]
+     * [张2, 张6, 张1, 张3, 张5, 张8, 张4, 张4, 张4, 张4]
+     */
+    @Test
+    public void t4() {
+        List<Integer> ids = Lists.newArrayList();
+        List<String> strs = Lists.newArrayList();
+
+        List<String> name = list.stream().
+                peek(e -> ids.add(e.getId()))
+                .peek(e -> strs.add(e.getSex()))
+                .map(Person2::getLastName).collect(Collectors.toList());
+        System.out.println(ids.toString());
+        System.out.println(strs.toString());
+        System.out.println(name.toString());
+    }
 
 
 }
