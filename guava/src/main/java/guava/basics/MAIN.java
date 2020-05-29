@@ -86,7 +86,6 @@ public class MAIN {
     }
 
 
-
     /**
      * Print a separation header including the provided text.
      *
@@ -97,8 +96,6 @@ public class MAIN {
         out.println("== " + headerText);
         out.println("==========================================================");
     }
-
-
 
 
     /**
@@ -112,7 +109,6 @@ public class MAIN {
 
 
         demonstrateTransform2(); // 全部转大写
-
 
 
     }

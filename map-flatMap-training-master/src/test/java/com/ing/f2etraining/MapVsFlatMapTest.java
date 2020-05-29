@@ -4,27 +4,19 @@ import akka.dispatch.ExecutionContexts;
 import akka.dispatch.Futures;
 import akka.util.Timeout;
 import com.ing.f2etraining.model.Person;
-import errors.impl.MyError;
+import org.assertj.core.util.Lists;
 import org.junit.Test;
 import scala.concurrent.Await;
 import scala.concurrent.ExecutionContext;
 import scala.concurrent.Future;
 import scala.concurrent.duration.Duration;
-import scala.util.Either;
-import scala.util.Left;
-import scala.util.Right;
-import util.Java8;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import errors.GenericError;
-
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MapVsFlatMapTest {
@@ -32,6 +24,9 @@ public class MapVsFlatMapTest {
     private static final ExecutionContext EXECUTOR = ExecutionContexts.fromExecutor(Executors.newSingleThreadExecutor());
     private static final Timeout TIMEOUT = new Timeout(Duration.create(5, "seconds"));
 
+    /**
+     * peek 操作
+     */
     @Test
     public void useMapOnList() {
         //given
@@ -41,13 +36,17 @@ public class MapVsFlatMapTest {
                 new Person().setName("David").setAge(28)
         );
 
-        //when
-        //Hint: You have to use map
-        /* TODO */
-        List<String> names = null;
+        List<String> names = Lists.newArrayList();
+        List<Integer> ages = Lists.newArrayList();
+
+        List<Person> collect = people.stream().peek(e -> {
+            names.add(e.getName());
+            ages.add(e.getAge());
+        }).collect(Collectors.toList());
 
         //then
         assertThat(names).containsOnly("Juan", "David", "Miguel");
+        assertThat(ages).containsOnly(35, 34, 28);
     }
 
     @Test
@@ -55,13 +54,11 @@ public class MapVsFlatMapTest {
         //given
         Optional<Person> personOptional = Optional.of(new Person().setName("Juan").setAge(35));
 
-        //when
-        //Hint: You have to use map
-        /* TODO */
         Optional<String> nameOptional = null;
+//        personOptional.
 
-        //then
-        assertThat(nameOptional).contains("Juan");
+        //then todo
+//        assertThat(nameOptional).contains("Juan");
     }
 
     @Test
@@ -130,9 +127,9 @@ public class MapVsFlatMapTest {
     public void workWithListsInsideList() {
         //given
         List<Person> people = Arrays.asList(
-            new Person().setName("Juan").setAge(35).addSkill("Java").addSkill("Go"),
-            new Person().setName("Miguel").setAge(34).addSkill("C++").addSkill("Python"),
-            new Person().setName("David").setAge(28).addSkill("Scala")
+                new Person().setName("Juan").setAge(35).addSkill("Java").addSkill("Go"),
+                new Person().setName("Miguel").setAge(34).addSkill("C++").addSkill("Python"),
+                new Person().setName("David").setAge(28).addSkill("Scala")
         );
 
         //when
@@ -145,7 +142,7 @@ public class MapVsFlatMapTest {
     }
 
     @Test
-    public void workWithFutureInsideAotherFuture() throws Exception{
+    public void workWithFutureInsideAotherFuture() throws Exception {
         //given
         Future<Person> personFuture = Futures.successful(new Person().setName("Juan").setAge(35));
 

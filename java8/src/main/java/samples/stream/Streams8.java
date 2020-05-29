@@ -1,12 +1,10 @@
 package samples.stream;
 
+import com.google.common.collect.Maps;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -205,8 +203,43 @@ public class Streams8 {
                                                 Collectors.toList()))
                         );
         namesByGender.forEach((k, v) -> System.out.println(k + " : " + v));
+    }
 
+    @Test
+    public void t12_11() {
+        List<Person> roster = Arrays.asList(
+                new Person("as", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zx", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zc", LocalDate.now(), Person.Sex.MALE, "Test@", 12),
+                new Person("zv", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zb", LocalDate.now(), Person.Sex.MALE, "Test@", 12),
+                new Person("zn", LocalDate.now(), Person.Sex.FEMALE, "Test@", 12),
+                new Person("zm", LocalDate.now(), Person.Sex.MALE, "Test@", 29)
+        );
 
+        Map<Integer, List<String>> collect = roster.stream()
+                .collect(
+                        Collectors.groupingBy(
+                                Person::getAge,
+                                Collectors.mapping(
+                                        Person::getName,
+                                        Collectors.toList()))
+                );
+
+        HashMap<Integer, String> mapss = Maps.newHashMap();
+        mapss.put(12,"少年");
+        mapss.put(29,"青年");
+
+        Map<String, List<String>> mapTrans = new HashMap<>();
+        collect.forEach((k, v) -> {
+            mapss.forEach((k2, v2) -> {
+                if (k2.equals(k)) {
+                    mapTrans.put(v2, v);
+                }
+            });
+        });
+        collect.forEach((k, v) -> System.out.println(k + " : " + v));
+        mapTrans.forEach((k, v) -> System.out.println(k + " : " + v));
     }
 
     /**

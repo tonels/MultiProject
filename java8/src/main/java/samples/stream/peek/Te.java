@@ -186,5 +186,24 @@ public class Te {
         System.out.println(name.toString());
     }
 
+    /**
+     * 比较初始化
+     */
+    @Test
+    public void t5() {
+        List<Person2> people = Arrays.asList(
+                new Person2().setLastName("Juan").setId(35),
+                new Person2().setLastName("Miguel").setId(34),
+                new Person2().setLastName("David").setId(28)
+        );
+
+        List<String> names = Lists.newArrayList(); // 0
+        List<Integer> objects = new ArrayList<>(); // 0
+        List<Integer> ages = null; // null,这种无法后续操作
+        people.stream().peek(e -> names.add(e.getLastName())).map(Person2::getLastName).collect(Collectors.toList());
+        System.out.println(names);
+
+    }
+
 
 }

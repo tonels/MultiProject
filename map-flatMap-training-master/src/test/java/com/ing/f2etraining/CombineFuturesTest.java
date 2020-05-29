@@ -1,14 +1,11 @@
 package com.ing.f2etraining;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import akka.dispatch.ExecutionContexts;
 import akka.dispatch.Futures;
 import akka.util.Timeout;
 import com.ing.f2etraining.model.Person;
 import errors.GenericError;
 import errors.impl.MyError;
-import java.util.concurrent.Executors;
 import org.junit.Test;
 import scala.concurrent.Await;
 import scala.concurrent.ExecutionContext;
@@ -17,13 +14,24 @@ import scala.concurrent.duration.Duration;
 import scala.util.Either;
 import scala.util.Left;
 import scala.util.Right;
-import util.Java8;
+
+import java.util.concurrent.Executors;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CombineFuturesTest {
 
     private static final ExecutionContext EXECUTOR = ExecutionContexts.fromExecutor(Executors.newSingleThreadExecutor());
     private static final Timeout TIMEOUT = new Timeout(Duration.create(5, "seconds"));
 
+    /**
+     * todo 异常
+     * java.lang.NullPointerException
+     * 	at scala.concurrent.Await$.$anonfun$result$1(package.scala:215)
+     * 	at scala.concurrent.BlockContext$DefaultBlockContext$.blockOn(BlockContext.scala:53)
+     * 	at scala.concurrent.Await$.result(package.scala:142)
+     * @throws Exception
+     */
     @Test
     public void combineSeveralFuturesWithFlatMap() throws Exception {
         //given
@@ -38,6 +46,14 @@ public class CombineFuturesTest {
         assertThat(sumAge).isEqualTo(63);
     }
 
+    /**
+     * todo
+     * java.lang.NullPointerException
+     * 	at scala.concurrent.Await$.$anonfun$result$1(package.scala:215)
+     * 	at scala.concurrent.BlockContext$DefaultBlockContext$.blockOn(BlockContext.scala:53)
+     *
+     * @throws Exception
+     */
     @Test
     public void combineSeveralFuturesWithMap() throws Exception {
         //given
