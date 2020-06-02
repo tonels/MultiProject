@@ -1,19 +1,21 @@
 package demo.gson;
 
+import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
 import com.google.gson.FieldNamingPolicy;
+import com.google.gson.FieldNamingStrategy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import demo.bean.BagOfPrimitives;
 import demo.bean.SomeObject;
+import demo.bean.UserNaming;
 import demo.bean.VersionedClass;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 
 public class JsonTest {
 
@@ -248,6 +250,153 @@ public class JsonTest {
         String date = "\"2013-02-10T13:45:30+0100\"";
         Date test = gson.fromJson(date, Date.class);
         System.out.println("date:" + test);
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void t12() {
+        Map<String, Object> a = new HashMap<String, Object>() {{
+            put("area_id", 100);
+            put("area_name", null);
+        }};
+        Map<String, Object> b = new HashMap<>();
+
+        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
+
+        a.forEach((k, v) -> b.put(gson.toJson(k), v));
+        System.out.println(b);
+    }
+
+    /**
+     * 原序列
+     * FieldNamingPolicy.IDENTITY 测试
+     * {"Name":"Norman","email_of_developer":"norman@futurestud.io","isDeveloper":true,"_ageOfDeveloper":26}
+     */
+    @Test
+    public void t13() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY);
+        Gson gson = gsonBuilder.create();
+
+        UserNaming user = new UserNaming("Norman", "norman@futurestud.io", true, 26);
+        String usersJson = gson.toJson(user);
+
+        System.out.println(usersJson);
+    }
+
+    /**
+     * 下划线
+     * FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES，测试
+     * {"name":"Norman","email_of_developer":"norman@futurestud.io","is_developer":true,"_age_of_developer":26}
+     */
+    @Test
+    public void t14() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+        Gson gson = gsonBuilder.create();
+
+        UserNaming user = new UserNaming("Norman", "norman@futurestud.io", true, 26);
+        String usersJson = gson.toJson(user);
+
+        System.out.println(usersJson);
+    }
+
+    /**
+     * 驼峰中横线
+     * FieldNamingPolicy.LOWER_CASE_WITH_DASHES，测试
+     * {"name":"Norman","email_of_developer":"norman@futurestud.io","is-developer":true,"_age-of-developer":26}
+     */
+    @Test
+    public void t15() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES);
+        Gson gson = gsonBuilder.create();
+
+        UserNaming user = new UserNaming("Norman", "norman@futurestud.io", true, 26);
+        String usersJson = gson.toJson(user);
+
+        System.out.println(usersJson);
+    }
+
+    /**
+     * 驼峰首字母大写
+     * FieldNamingPolicy.UPPER_CAMEL_CASE，测试
+     * {"Name":"Norman","Email_of_developer":"norman@futurestud.io","IsDeveloper":true,"_AgeOfDeveloper":26}
+     */
+    @Test
+    public void t16() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE);
+        Gson gson = gsonBuilder.create();
+
+        UserNaming user = new UserNaming("Norman", "norman@futurestud.io", true, 26);
+        String usersJson = gson.toJson(user);
+
+        System.out.println(usersJson);
+    }
+
+    /**
+     * 驼峰转空格
+     * FieldNamingPolicy.UPPER_CAMEL_CASE，测试
+     * {"Name":"Norman","Email_of_developer":"norman@futurestud.io","Is Developer":true,"_Age Of Developer":26}
+     */
+    @Test
+    public void t17() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE_WITH_SPACES);
+        Gson gson = gsonBuilder.create();
+
+        UserNaming user = new UserNaming("Norman", "norman@futurestud.io", true, 26);
+        String usersJson = gson.toJson(user);
+
+        System.out.println(usersJson);
+    }
+
+    /**
+     * 自定义 - “”替换下划线
+     */
+    @Test
+    public void t18() {
+        FieldNamingStrategy customPolicy = new FieldNamingStrategy() {
+            @Override
+            public String translateName(Field f) {
+                return f.getName().replace("_", "");
+            }
+        };
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setFieldNamingStrategy(customPolicy);
+        Gson gson = gsonBuilder.create();
+
+        UserNaming user = new UserNaming("Norman", "norman@futurestud.io", true, 26);
+        String usersJson = gson.toJson(user);
+
+        System.out.println(usersJson);
+    }
+
+    /**
+     * 自定义字段 转换
+     * {"Name":"Norman","emailOfDeveloper":"norman@futurestud.io","isDeveloper":true,"Ageofdeveloper":26}
+     */
+    @Test
+    public void t19() {
+        FieldNamingStrategy customPolicy = new FieldNamingStrategy() {
+            @Override
+            public String translateName(Field f) {
+                return StrUtil.toCamelCase(f.getName());
+            }
+        };
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setFieldNamingStrategy(customPolicy);
+        Gson gson = gsonBuilder.create();
+
+        UserNaming user = new UserNaming("Norman", "norman@futurestud.io", true, 26);
+        String usersJson = gson.toJson(user);
+
+        System.out.println(usersJson);
     }
 
 

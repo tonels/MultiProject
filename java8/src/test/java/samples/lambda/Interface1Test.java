@@ -21,11 +21,7 @@ public class Interface1Test {
             System.out.println(ranking.incrementAndGet());
 
         }
-
-
-
-
-
-
     }
+
+
 }
