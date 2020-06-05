@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://192.168.1.140:3306/proce?autoReconnect=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/classicmodels?autoReconnect=true&useSSL=false
     username: root
     password: root
     hikari:
@@ -29,7 +29,7 @@ spring:
       hibernate.cache.use_second_level_cache: false
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: false
-      hibernate.hbm2ddl.auto: none # 自动生成建表语句
+      hibernate.hbm2ddl.auto: update # 自动生成建表语句
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # 取消驼峰式命名

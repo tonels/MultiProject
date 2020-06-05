@@ -28,6 +28,7 @@
         <module>springboot-jsp</module>
         <module>java8</module>
         <module>querydsl2</module>
+        <module>Jackson</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -67,9 +68,6 @@
 
     <!--放公共Jar的地方-->
     <dependencyManagement>
-
-
-
 
 
     </dependencyManagement>
