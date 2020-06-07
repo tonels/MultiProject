@@ -19,4 +19,20 @@ public class Car {
     public void setDoors(int doors) {
         this.doors = doors;
     }
+
+    public Car(String brand, int doors) {
+        this.brand = brand;
+        this.doors = doors;
+    }
+
+    public Car() {
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "brand='" + brand + '\'' +
+                ", doors=" + doors +
+                '}';
+    }
 }
