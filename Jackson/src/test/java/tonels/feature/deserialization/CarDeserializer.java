@@ -1,4 +1,4 @@
-package tonels.deserializer;
+package tonels.feature.deserialization;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
