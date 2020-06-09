@@ -131,4 +131,19 @@ public class FileMediaInjectVO {
     public int hashCode() {
         return Objects.hashCode(requestNo, requestDate, requestStatus, fileId, apiId, apiName, originalUrl, filePath, fileStatus);
     }
+
+    @Override
+    public String toString() {
+        return "FileMediaInjectVO{" +
+                "requestNo='" + requestNo + '\'' +
+                ", requestDate=" + requestDate +
+                ", requestStatus='" + requestStatus + '\'' +
+                ", fileId=" + fileId +
+                ", apiId=" + apiId +
+                ", apiName='" + apiName + '\'' +
+                ", originalUrl='" + originalUrl + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", fileStatus='" + fileStatus + '\'' +
+                '}';
+    }
 }
