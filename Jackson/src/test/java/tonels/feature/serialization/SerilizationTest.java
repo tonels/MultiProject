@@ -1,5 +1,6 @@
 package tonels.feature.serialization;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -103,11 +104,28 @@ public class SerilizationTest extends ModuleTestBase {
     }
 
 
+    /**
+     * {
+     *   "id" : 1,
+     *   "name" : "na",
+     *   "sex" : ""
+     * }
+     * @throws JsonProcessingException
+     */
+    @Test
+    public void t4_3() throws JsonProcessingException {
+        P4 p4 = new P4(1, "na", "");
+        dateMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        System.out.println(dateMapper.configure(SerializationFeature.INDENT_OUTPUT, true).writeValueAsString(p4));
+    }
+
+
     @Test
     public void t4_2() throws JsonProcessingException {
         P4 p4 = new P4(1, "na", "");
         System.out.println(dateMapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true).writeValueAsString(p4));
     }
+
 
 
 }
